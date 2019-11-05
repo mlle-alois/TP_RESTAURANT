@@ -493,4 +493,38 @@ public class Modele {
 		}
 		return leSoft;
 	}
+	
+	public static int getMaxIdPlat(){
+		int id = 0;
+		
+		try{
+			String sql = "SELECT MAX(idPlat) AS id FROM Plat";
+			rs = st.executeQuery(sql);
+			
+			rs.next();
+			id = rs.getInt("id") + 1;
+		}
+		catch(SQLException e){
+			System.out.println("Erreur SQL");
+		}
+		return id;
+	}
+	
+	public static void ajouterPlat(String nom, float prix, ArrayList<Plat> lesPlats){
+		try{
+			int id = Modele.getMaxIdPlat();
+			
+			ps = connexion.prepareStatement("INSERT INTO Plat VALUES(?,?,?);");
+			ps.setInt(1, id);
+			ps.setString(2, nom);
+			ps.setFloat(3, prix);
+			ps.executeUpdate();
+			
+			lesPlats.add(new Plat(id, nom, prix));
+			
+		}
+		catch(SQLException e){
+			System.out.println("Erreur SQL Plat");
+		}
+	}
 }

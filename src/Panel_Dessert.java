@@ -8,7 +8,7 @@ public class Panel_Dessert extends JPanel{
 	private JLabel lblNb;
 	private JTable tableau;
 	
-	public Panel_Dessert(int nbDesserts, ArrayList<Dessert> lesDesserts){
+	public Panel_Dessert(int nbDesserts, ArrayList<Dessert> lesDesserts, JFrame fenetre){
 		
 		lblNb = new JLabel("Nombre de desserts : " + nbDesserts);
 		

@@ -88,5 +88,10 @@ public class ModeleTest {
 		Assert.assertEquals("Nombre de menus dans la liste incorrect", 0, Modele.getLesMenus().size());
 	}
 	
+	@Test
+	public void testIdMaxPlat(){
+		Assert.assertEquals("Id maximum incorrect", 3, Modele.getMaxIdPlat());
+	}
+	
 
 }

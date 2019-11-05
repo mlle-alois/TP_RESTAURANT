@@ -22,8 +22,8 @@ public class Panel_connexion extends JPanel{
 		this.lblMdp = new JLabel("Mot de passe : ");
 		this.lblErreur = new JLabel();
 
-		this.jtfMail = new JTextField();
-		this.jpfMdp = new JPasswordField();
+		this.jtfMail = new JTextField("alois.zimmermann45@gmail.com");
+		this.jpfMdp = new JPasswordField("123456");
 		
 		this.jtfMail.setPreferredSize(new Dimension(150, 30));
 		this.jpfMdp.setPreferredSize(new Dimension(150, 30));

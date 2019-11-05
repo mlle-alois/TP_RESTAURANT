@@ -26,21 +26,21 @@ public class ActionMenu implements ActionListener{
 		if(e.getSource() == plat){
 			int nbPlats = Modele.getNbPlats();
 			ArrayList<Plat> lesPlats = Modele.getLesPlats();
-			fenetre.setContentPane(new Panel_Plat(nbPlats, lesPlats));
+			fenetre.setContentPane(new Panel_Plat(nbPlats, lesPlats, fenetre));
 			fenetre.revalidate();
 		}
 		else{
 			if(e.getSource() == dessert){
 				int nbDesserts = Modele.getNbDesserts();
 				ArrayList<Dessert> lesDesserts = Modele.getLesDesserts();
-				fenetre.setContentPane(new Panel_Dessert(nbDesserts, lesDesserts));
+				fenetre.setContentPane(new Panel_Dessert(nbDesserts, lesDesserts, fenetre));
 				fenetre.revalidate();
 			}
 			else{
 				if(e.getSource() == boisson){
 					int nbBoissons = Modele.getNbBoissons();
 					ArrayList<Boisson> lesBoissons = Modele.getLesBoissons();
-					fenetre.setContentPane(new Panel_Boisson(nbBoissons, lesBoissons));
+					fenetre.setContentPane(new Panel_Boisson(nbBoissons, lesBoissons, fenetre));
 					fenetre.revalidate();
 				}
 				else{

@@ -21,6 +21,9 @@ public class ActionAjouter implements ActionListener{
 	private JTextField jtfQte;
 	private JTextField jtfTaux;
 	private JLabel lblErreur;
+	private JComboBox plat;
+	private JComboBox boisson;
+	private JComboBox dessert;
 	
 	public ActionAjouter(JButton bouton, JFrame fenetre, ArrayList<Plat> lesPlats, int nb, JTextField jtfNom, JTextField jtfPrix, JLabel lblErreur){
 		this.bouton = bouton;
@@ -54,13 +57,15 @@ public class ActionAjouter implements ActionListener{
 		this.lblErreur = lblErreur;
 	}
 	
-	public ActionAjouter(JFrame fenetre, JButton bouton, ArrayList<Commande> lesCommandes, int nb, JTextField jtfNb, JLabel lblErreur, int i){
+	public ActionAjouter(JFrame fenetre, JButton bouton, ArrayList<Commande> lesCommandes, int nb, JLabel lblErreur, JComboBox plat, JComboBox dessert, JComboBox boisson, int i){
 		this.bouton = bouton;
 		this.fenetre = fenetre;
 		this.lesCommandes = lesCommandes;
 		this.nb = nb;
-		this.jtfNb = jtfNb;
 		this.lblErreur = lblErreur;
+		this.plat = plat;
+		this.dessert = dessert;
+		this.boisson = boisson;
 		this.i = i;
 	}
 	
@@ -128,7 +133,10 @@ public class ActionAjouter implements ActionListener{
 									if(i > 0){
 										//Modele.ajouterMenu(idMenu, idDessert, idPlat, idSoft, idAlcool);
 									}
-									fenetre.setContentPane(new Panel_AjouterCommande2(lesCommandes, fenetre, nb, nbC, i));
+									ArrayList<Plat> lesPlats = Modele.getLesPlats();
+									ArrayList<Dessert> lesDesserts = Modele.getLesDesserts();
+									ArrayList<Boisson> lesBoissons = Modele.getLesBoissons();
+									fenetre.setContentPane(new Panel_AjouterCommande2(lesCommandes, fenetre, nb, nbC, i, lesPlats, lesDesserts, lesBoissons));
 									fenetre.revalidate();
 								}
 								else{

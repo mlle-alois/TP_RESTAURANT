@@ -29,6 +29,7 @@ public class Panel_connexion extends JPanel{
 		this.jpfMdp.setPreferredSize(new Dimension(150, 30));
 		
 		this.boutonConnexion = new JButton("Connexion !");
+		this.boutonConnexion.setName("Connexion");
 		this.boutonConnexion.addActionListener(new ActionBouton(menu, fenetre, jtfMail, jpfMdp, boutonConnexion, lblErreur));
 		
 		GridBagConstraints c = new GridBagConstraints();

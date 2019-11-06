@@ -1,6 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -8,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 
-public class Panel_Plat extends JPanel implements ActionListener{
+public class Panel_Commandes extends JPanel implements ActionListener{
 
 	private JLabel lblNb;
 	private JTable tableau;
@@ -16,30 +14,30 @@ public class Panel_Plat extends JPanel implements ActionListener{
 	private JPanel panelHaut;
 	private JPanel panelBas;
 	
-	public Panel_Plat(int nbPlat, ArrayList<Plat> lesPlats, JFrame fenetre){
+	public Panel_Commandes(JFrame fenetre, ArrayList<Commande> lesCommandes, int nbCommandes){
 
 		this.setLayout(new BorderLayout());
 		
-		this.boutonAjouter = new JButton("Ajouter un plat");
-		this.boutonAjouter.setName("Plat");
-		this.boutonAjouter.addActionListener( new ActionBouton(fenetre, lesPlats, nbPlat, boutonAjouter));
+		this.boutonAjouter = new JButton("Passer une commande");
+		this.boutonAjouter.setName("Commande");
+		this.boutonAjouter.addActionListener( new ActionBouton(lesCommandes, fenetre, nbCommandes, boutonAjouter));
 		
 		this.panelHaut = new JPanel();
 		this.panelBas = new JPanel();
 		this.panelHaut.setLayout(new BorderLayout());
 		
-		lblNb = new JLabel("Nombre de plats : " + nbPlat);
+		lblNb = new JLabel("Nombre de commandes : " + nbCommandes);
 		
 		int i = 0;
 		
-		Object data[][] = new Object[lesPlats.size()][3];
-		for(Plat plat : lesPlats){
-			data[i][0] = plat.getIdPlat();
-			data[i][1] = plat.getNomP();
-			data[i][2] = plat.getPrixP()+"€";
+		Object data[][] = new Object[nbCommandes][3];
+		for(Commande commande : lesCommandes){
+			data[i][0] = commande.getIdCommande();
+			data[i][1] = commande.getNbCouverts();
+			data[i][2] = commande.getDateCommande();
 			i += 1;
 		}
-		String [] title = {"Id", "Nom", "Prix"};
+		String [] title = {"Numéro de commande", "Nombre de couverts", "Date de la commande"};
 		this.tableau = new JTable(data,title);
 		JScrollPane scrollPane = new JScrollPane(tableau);
 		
@@ -50,7 +48,6 @@ public class Panel_Plat extends JPanel implements ActionListener{
 		
 		this.add(panelHaut, BorderLayout.NORTH);
 		this.add(panelBas, BorderLayout.CENTER);
-		
 	}
 
 	@Override
@@ -58,4 +55,5 @@ public class Panel_Plat extends JPanel implements ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
+
 }

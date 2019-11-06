@@ -12,8 +12,11 @@ public class ActionAjouter implements ActionListener{
 	private ArrayList<Plat> lesPlats;
 	private ArrayList<Dessert> lesDesserts;
 	private ArrayList<Boisson> lesBoissons;
+	private ArrayList<Commande> lesCommandes;
 	private int nb;
+	private int i;
 	private JTextField jtfNom;
+	private JTextField jtfNb;
 	private JTextField jtfPrix;
 	private JTextField jtfQte;
 	private JTextField jtfTaux;
@@ -51,6 +54,16 @@ public class ActionAjouter implements ActionListener{
 		this.lblErreur = lblErreur;
 	}
 	
+	public ActionAjouter(JFrame fenetre, JButton bouton, ArrayList<Commande> lesCommandes, int nb, JTextField jtfNb, JLabel lblErreur, int i){
+		this.bouton = bouton;
+		this.fenetre = fenetre;
+		this.lesCommandes = lesCommandes;
+		this.nb = nb;
+		this.jtfNb = jtfNb;
+		this.lblErreur = lblErreur;
+		this.i = i;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(bouton.getName().equals("Plat")){
@@ -82,10 +95,57 @@ public class ActionAjouter implements ActionListener{
 			}
 		}
 		else{
-			if(bouton.getName().equals("Boisson")){
-				fenetre.setContentPane(new Panel_Dessert(nb, lesDesserts, fenetre));
+			/*if(bouton.getName().equals("Boisson")){
+				fenetre.setContentPane(new Panel_AjouterBoisson(nb, lesDesserts, fenetre));
 				fenetre.revalidate();
 			}
+			else{
+				if(bouton.getName().equals("Dessert")){
+					fenetre.setContentPane(new Panel_AjouterDessert(nb, lesDesserts, fenetre));
+					fenetre.revalidate();
+				}
+				else{*/
+					if(bouton.getName().equals("Commande")){
+						if(jtfNb.getText().trim().equals("")){
+							lblErreur.setText("Veuillez remplir le champ");
+						}
+						else{
+							lblErreur.setText("");
+							float nbr = 0;
+							int nbC = 0;
+							try{
+								nbr = Float.parseFloat(jtfNb.getText());
+								nbC = (int) nbr;
+							}
+							catch(Exception exception){
+								lblErreur.setText("<HTML>Veuillez saisir un nombre de<br/>couverts valide</HTML>");
+							}
+							if(nbC == 0){
+								lblErreur.setText("<HTML>Veuillez saisir un nombre de<br/>couverts valide</HTML>");
+							}
+							else{
+								if(i < nbC){
+									if(i > 0){
+										//Modele.ajouterMenu(idMenu, idDessert, idPlat, idSoft, idAlcool);
+									}
+									fenetre.setContentPane(new Panel_AjouterCommande2(lesCommandes, fenetre, nb, nbC, i));
+									fenetre.revalidate();
+								}
+								else{
+									try{
+										//Modele.ajouterCommande(jtfNb.getText());
+									}
+									catch(Exception exception){
+										System.out.println("NON");
+									}
+									fenetre.setContentPane(new Panel_Commandes(fenetre, lesCommandes, nb));
+									fenetre.revalidate();
+								}
+							}
+						}
+					}
+				/*}
+			}*/
 		}
 	}
 

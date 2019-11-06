@@ -89,9 +89,19 @@ public class ModeleTest {
 	}
 	
 	@Test
+	public void testGetNbCommandes() {
+		Assert.assertEquals("Nombre de commandes incorrect", 0, Modele.getNbCommandes());
+	}
+	
+	@Test
+	public void testLesCommandes(){
+		Assert.assertEquals("Nombre de commandes dans la liste incorrect", 0, Modele.getLesCommandes().size());
+	}
+	
+	/*@Test
 	public void testIdMaxPlat(){
 		Assert.assertEquals("Id maximum incorrect", 3, Modele.getMaxIdPlat());
-	}
+	}*/
 	
 
 }

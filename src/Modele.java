@@ -317,8 +317,6 @@ public class Modele {
 			
 			while(rs.next()){
 				idM = rs.getInt("idMenu");
-				nomM = rs.getString("nomM");
-				prixM = rs.getFloat("prixM");
 				idD = rs.getInt("idDessert");
 				idP = rs.getInt("idPlat");
 				idS = rs.getInt("idSoft");
@@ -329,7 +327,7 @@ public class Modele {
 				soft = Modele.rechercherSoft(idS);
 				alcool = Modele.rechercherAlcool(idA);
 				
-				lesMenus.add(new Menu(idM, nomM, prixM, dessert, plat, soft, alcool));
+				lesMenus.add(new Menu(idM, dessert, plat, soft, alcool));
 			}
 			
 		}
@@ -343,6 +341,46 @@ public class Modele {
 		int nb = 0;
 		try{
 			String sql = "SELECT count(*) as nb from Menu";
+			rs = st.executeQuery(sql);
+			
+			rs.next();
+			nb = rs.getInt("nb");
+		}
+		catch(SQLException erreur){
+			System.out.println("La connexion à la base de données a échoué ou Erreur SQL…" + erreur);
+		}
+		return nb;
+	}
+
+	public static ArrayList<Commande> getLesCommandes(){
+		ArrayList<Commande> lesCommandes = new ArrayList<Commande>();
+		try{
+			String sql = "SELECT * FROM Commande";
+			rs = st.executeQuery(sql);
+			
+			int numC;
+			int nbC;
+			Date date;
+			
+			while(rs.next()){
+				numC = rs.getInt("numCommande");
+				nbC = rs.getInt("nbrCouverts");
+				date = (Date) rs.getObject("dateCommande");
+				
+				lesCommandes.add(new Commande(numC, nbC, date));
+			}
+			
+		}
+		catch(SQLException e){
+			System.out.println("Erreur SQL");
+		}
+		return lesCommandes;
+	}
+	
+	public static int getNbCommandes(){
+		int nb = 0;
+		try{
+			String sql = "SELECT count(*) as nb from Commande";
 			rs = st.executeQuery(sql);
 			
 			rs.next();

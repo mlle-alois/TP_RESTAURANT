@@ -10,13 +10,17 @@ public class ActionMenu implements ActionListener{
 	private JMenuItem plat;
 	private JMenuItem dessert;
 	private JMenuItem boisson;
+	private JMenuItem menu;
+	private JMenuItem commande;
 	private JMenuItem quitter;
 	private JFrame fenetre;
 	
-	public ActionMenu(JMenuItem plat, JMenuItem dessert, JMenuItem boisson, JMenuItem quitter, JFrame fenetre) {
+	public ActionMenu(JMenuItem plat, JMenuItem dessert, JMenuItem boisson, JMenuItem menu, JMenuItem commande, JMenuItem quitter, JFrame fenetre) {
 		this.plat = plat;
 		this.dessert = dessert;
 		this.boisson = boisson;
+		this.menu = menu;
+		this.commande = commande;
 		this.quitter = quitter;
 		this.fenetre = fenetre;
 	}
@@ -44,9 +48,25 @@ public class ActionMenu implements ActionListener{
 					fenetre.revalidate();
 				}
 				else{
-					if(e.getSource() == quitter){
-						Modele.deconnexion();
-						System.exit(0);
+					if(e.getSource() == menu){
+						int nbMenus = Modele.getNbMenus();
+						ArrayList<Menu> lesMenus = Modele.getLesMenus();
+						fenetre.setContentPane(new Panel_Menus(nbMenus, lesMenus, fenetre));
+						fenetre.revalidate();
+					}
+					else{
+						if(e.getSource() == commande){
+							int nbCommandes = Modele.getNbCommandes();
+							ArrayList<Commande> lesCommandes = Modele.getLesCommandes();
+							fenetre.setContentPane(new Panel_Commandes(fenetre, lesCommandes, nbCommandes));
+							fenetre.revalidate();
+						}
+						else{
+							if(e.getSource() == quitter){
+								Modele.deconnexion();
+								System.exit(0);
+							}
+						}
 					}
 				}
 			}

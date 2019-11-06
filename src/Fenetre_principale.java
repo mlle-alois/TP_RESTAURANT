@@ -20,6 +20,10 @@ public class Fenetre_principale extends JFrame implements ActionListener{
 	private JMenuItem boisson;
 	private JMenu menuQuitter;
 	private JMenuItem quitter;
+	private JMenu menuMenu;
+	private JMenuItem menus;
+	private JMenu menuCommande;
+	private JMenuItem commande;
 	
 	public Fenetre_principale(){
 		
@@ -31,29 +35,41 @@ public class Fenetre_principale extends JFrame implements ActionListener{
 
 		JMenuBar menu= new JMenuBar();
 
-		menuPlat = new JMenu("Plat");
-		plat = new JMenuItem("Plat");
+		menuPlat = new JMenu("Plats");
+		plat = new JMenuItem("Plats");
 	    menuPlat.add(plat);
-	    plat.addActionListener(new ActionMenu(plat, dessert, boisson, quitter, this));
+	    plat.addActionListener(new ActionMenu(plat, dessert, boisson, menus, commande, quitter, this));
 
-	    menuDessert = new JMenu("Dessert");
-	    dessert = new JMenuItem("Dessert");
+	    menuDessert = new JMenu("Desserts");
+	    dessert = new JMenuItem("Desserts");
 	    menuDessert.add(dessert);
-	    dessert.addActionListener(new ActionMenu(plat, dessert, boisson, quitter, this));
+	    dessert.addActionListener(new ActionMenu(plat, dessert, boisson, menus, commande, quitter, this));
 
-	    menuBoisson = new JMenu("Boisson");
-	    boisson = new JMenuItem("Boisson");
+	    menuBoisson = new JMenu("Boissons");
+	    boisson = new JMenuItem("Boissons");
 	    menuBoisson.add(boisson);
-	    boisson.addActionListener(new ActionMenu(plat, dessert, boisson, quitter, this));
+	    boisson.addActionListener(new ActionMenu(plat, dessert, boisson, menus, commande, quitter, this));
+
+	    menuMenu = new JMenu("Menus");
+	    menus = new JMenuItem("Menus");
+	    menuMenu.add(menus);
+	    menus.addActionListener(new ActionMenu(plat, dessert, boisson, menus, commande, quitter, this));
+
+	    menuCommande = new JMenu("Commandes");
+	    commande = new JMenuItem("Commandes");
+	    menuCommande.add(commande);
+	    commande.addActionListener(new ActionMenu(plat, dessert, boisson, menus, commande, quitter, this));
 	    
 	    menuQuitter = new JMenu("Quitter");
 	    quitter = new JMenuItem("Quitter");
 	    menuQuitter.add(quitter);
-	    quitter.addActionListener(new ActionMenu(plat, dessert, boisson, quitter, this));
+	    quitter.addActionListener(new ActionMenu(plat, dessert, boisson, menus, commande, quitter, this));
 
 	    menu.add(menuPlat);
 	    menu.add(menuDessert);
 	    menu.add(menuBoisson);
+	    menu.add(menuMenu);
+	    menu.add(menuCommande);
 	    menu.add(menuQuitter);
 	    
 	    this.setContentPane(new Panel_connexion(menu, this));

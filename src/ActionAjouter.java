@@ -151,7 +151,7 @@ public class ActionAjouter implements ActionListener{
 					}
 					else{
 						if(bouton.getName().equals("Commande2")){
-							if(i < nbC){
+							if(i <= nbC){
 								if(i > 0){
 									String valeur = (String) plat.getSelectedItem();
 									float nb;
@@ -309,11 +309,14 @@ public class ActionAjouter implements ActionListener{
 								ArrayList<Plat> lesPlats = Modele.getLesPlats();
 								ArrayList<Dessert> lesDesserts = Modele.getLesDesserts();
 								ArrayList<Boisson> lesBoissons = Modele.getLesBoissons();
-								fenetre.setContentPane(new Panel_AjouterCommande2(lesCommandes, fenetre, nb, nbC, i, lesPlats, lesDesserts, lesBoissons));
-								fenetre.revalidate();
+								if(i < nbC){
+									fenetre.setContentPane(new Panel_AjouterCommande2(lesCommandes, fenetre, nb, nbC, i, lesPlats, lesDesserts, lesBoissons));
+									fenetre.revalidate();
+								}
 							}
-							else{
+							if(i == nbC){
 								Modele.ajouterCommande(nbC, lesCommandes);
+								nb ++;
 								fenetre.setContentPane(new Panel_Commandes(fenetre, lesCommandes, nb));
 								fenetre.revalidate();
 							}

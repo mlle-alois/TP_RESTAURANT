@@ -49,26 +49,6 @@ public class ModeleTest {
 	}
 	
 	@Test
-	public void testGetNbAlcool() {
-		Assert.assertEquals("Nombre d'alcools incorrect", 3, Modele.getNbAlcools());
-	}
-	
-	@Test
-	public void testLesAlcools(){
-		Assert.assertEquals("Nombre d'alcools dans la liste incorrect", 3, Modele.getLesAlcools().size());
-	}
-	
-	@Test
-	public void testGetNbSofts() {
-		Assert.assertEquals("Nombre de softs incorrect", 3, Modele.getNbSofts());
-	}
-	
-	@Test
-	public void testLesSofts(){
-		Assert.assertEquals("Nombre de softs dans la liste incorrect", 3, Modele.getLesSofts().size());
-	}
-	
-	@Test
 	public void testGetNbBoissons() {
 		Assert.assertEquals("Nombre de boissons incorrect", 6, Modele.getNbBoissons());
 	}
@@ -80,12 +60,12 @@ public class ModeleTest {
 	
 	@Test
 	public void testGetNbMenus() {
-		Assert.assertEquals("Nombre de menus incorrect", 0, Modele.getNbMenus());
+		Assert.assertEquals("Nombre de menus incorrect", 3, Modele.getNbMenus());
 	}
 	
 	@Test
 	public void testLesMenus(){
-		Assert.assertEquals("Nombre de menus dans la liste incorrect", 0, Modele.getLesMenus().size());
+		Assert.assertEquals("Nombre de menus dans la liste incorrect", 1, Modele.getLesMenus().size());
 	}
 	
 	@Test

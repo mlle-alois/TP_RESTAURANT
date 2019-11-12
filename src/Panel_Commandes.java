@@ -29,7 +29,7 @@ public class Panel_Commandes extends JPanel implements ActionListener{
 		lblNb = new JLabel("Nombre de commandes : " + nbCommandes);
 		
 		int i = 0;
-		
+		System.out.println(nbCommandes == lesCommandes.size());
 		Object data[][] = new Object[nbCommandes][3];
 		for(Commande commande : lesCommandes){
 			data[i][0] = commande.getIdCommande();

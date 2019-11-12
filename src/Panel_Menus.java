@@ -25,23 +25,17 @@ public class Panel_Menus extends JPanel{
 		int i = 0;
 		float prix;
 		
-		Object data[][] = new Object[lesMenus.size()][3];
+		Object data[][] = new Object[nbMenus][5];
 		for(Menu menu : lesMenus){
 			prix = 0;
 			data[i][0] = menu.getIdMenu();
-			data[i][2] = menu.getPlatM().getNomP();
-			prix = menu.getPlatM().getPrixP();
-			data[i][3] = menu.getDessertM().getNomD();
-			prix = menu.getDessertM().getPrixD();
-			if(menu.getAlcoolM() == null){
-				data[i][4] = menu.getAlcoolM().getNomB();
-				prix = menu.getAlcoolM().getPrixB();
-			}
-			else{
-				data[i][4] = menu.getSoftM().getNomB();
-				prix = menu.getSoftM().getPrixB();
-			}
-			data[i][5] = prix + "€";
+			data[i][1] = menu.getPlatM().getNomP();
+			prix = prix + menu.getPlatM().getPrixP();
+			data[i][2] = menu.getDessertM().getNomD();
+			prix = prix + menu.getDessertM().getPrixD();
+			data[i][3] = menu.getBoissonM().getNomB();
+			prix = prix + menu.getBoissonM().getPrixB();
+			data[i][4] = prix + "€";
 			i += 1;
 		}
 		String [] title = {"Id", "Plat", "Dessert", "Boisson", "Prix"};

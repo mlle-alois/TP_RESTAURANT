@@ -19,8 +19,8 @@ public class Commande {
 		return nbCouverts;
 	}
 
-	public Date getDateCommande() {
-		return dateCommande;
+	public String getDateCommande() {
+		return dateCommande.getDateFrancais();
 	}
 	
 }

@@ -17,6 +17,7 @@ public class Modele {
 	private static Connection connexion;
 	private static Statement st;
 	private static ResultSet rs;
+	private static ResultSet rs2;
 	private static PreparedStatement ps;
 
 	public static void connexion(){
@@ -55,7 +56,8 @@ public class Modele {
 			if(rs.getInt("nb") == 1){
 				bool = true;
 			}
-			
+
+			rs.close();
 		}
 		catch (SQLException erreur) {
 			System.out.println("La connexion à la base de données a échoué ou Erreur SQL…" + erreur);
@@ -81,7 +83,8 @@ public class Modele {
 				
 				lesPlats.add(new Plat(idP, nomP, prixP));
 			}
-			
+
+			rs.close();
 		}
 		catch(SQLException e){
 			System.out.println("Erreur SQL");
@@ -97,6 +100,7 @@ public class Modele {
 			
 			rs.next();
 			nb = rs.getInt("nb");
+			rs.close();
 		}
 		catch(SQLException erreur){
 			System.out.println("La connexion à la base de données a échoué ou Erreur SQL…" + erreur);
@@ -121,10 +125,11 @@ public class Modele {
 				
 				lesDesserts.add(new Dessert(idD, nomD, prixD));
 			}
+			rs.close();
 			
 		}
 		catch(SQLException e){
-			System.out.println("Erreur SQL");
+			System.out.println("Erreur SQL dessert");
 		}
 		return lesDesserts;
 	}
@@ -137,95 +142,7 @@ public class Modele {
 			
 			rs.next();
 			nb = rs.getInt("nb");
-		}
-		catch(SQLException erreur){
-			System.out.println("La connexion à la base de données a échoué ou Erreur SQL…" + erreur);
-		}
-		return nb;
-	}
-	
-	public static ArrayList<Alcool> getLesAlcools(){
-		ArrayList<Alcool> lesAlcools = new ArrayList<Alcool>();
-		try{
-			String sql = "SELECT * FROM Alcool";
-			rs = st.executeQuery(sql);
-			
-			int idA;
-			String nomA;
-			float prixA;
-			String qteA;
-			float degreA;
-			
-			while(rs.next()){
-				idA = rs.getInt("idAlcool");
-				nomA = rs.getString("nomAlcool");
-				prixA = rs.getFloat("prixAlcool");
-				qteA = rs.getString("qteAlcool");
-				degreA = rs.getFloat("degreAlcool");
-				
-				lesAlcools.add(new Alcool(idA, nomA, prixA, qteA, degreA));
-			}
-			
-		}
-		catch(SQLException e){
-			System.out.println("Erreur SQL");
-		}
-		return lesAlcools;
-	}
-	
-	public static int getNbAlcools(){
-		int nb = 0;
-		try{
-			String sql = "SELECT count(*) as nb from Alcool";
-			rs = st.executeQuery(sql);
-			
-			rs.next();
-			nb = rs.getInt("nb");
-		}
-		catch(SQLException erreur){
-			System.out.println("La connexion à la base de données a échoué ou Erreur SQL…" + erreur);
-		}
-		return nb;
-	}
-
-	
-	public static ArrayList<Soft> getLesSofts(){
-		ArrayList<Soft> lesSofts = new ArrayList<Soft>();
-		try{
-			String sql = "SELECT * FROM Soft";
-			rs = st.executeQuery(sql);
-			
-			int idS;
-			String nomS;
-			float prixS;
-			String qteS;
-			float degreS;
-			
-			while(rs.next()){
-				idS = rs.getInt("idSoft");
-				nomS = rs.getString("nomSoft");
-				prixS = rs.getFloat("prixSoft");
-				qteS = rs.getString("qteSoft");
-				degreS = rs.getFloat("tauxSucre");
-				
-				lesSofts.add(new Soft(idS, nomS, prixS, qteS, degreS));
-			}
-			
-		}
-		catch(SQLException e){
-			System.out.println("Erreur SQL");
-		}
-		return lesSofts;
-	}
-	
-	public static int getNbSofts(){
-		int nb = 0;
-		try{
-			String sql = "SELECT count(*) as nb from Soft";
-			rs = st.executeQuery(sql);
-			
-			rs.next();
-			nb = rs.getInt("nb");
+			rs.close();
 		}
 		catch(SQLException erreur){
 			System.out.println("La connexion à la base de données a échoué ou Erreur SQL…" + erreur);
@@ -274,10 +191,11 @@ public class Modele {
 				
 				lesBoissons.add(new Alcool(idA, nomA, prixA, qteA, degreA));
 			}
-			
+
+			rs.close();
 		}
 		catch(SQLException e){
-			System.out.println("Erreur SQL");
+			System.out.println("Erreur SQL get boisson");
 		}
 		return lesBoissons;
 	}
@@ -290,6 +208,7 @@ public class Modele {
 			
 			rs.next();
 			nb = rs.getInt("nb");
+			rs.close();
 		}
 		catch(SQLException erreur){
 			System.out.println("La connexion à la base de données a échoué ou Erreur SQL…" + erreur);
@@ -300,39 +219,34 @@ public class Modele {
 	public static ArrayList<Menu> getLesMenus(){
 		ArrayList<Menu> lesMenus = new ArrayList<Menu>();
 		try{
-			String sql = "SELECT * FROM Menu";
+			String sql = "select * from menu";
 			rs = st.executeQuery(sql);
-			
+
 			int idM;
-			String nomM;
-			float prixM;
 			int idD;
 			int idP;
-			int idS;
-			int idA;
+			int idB;
 			
 			Dessert dessert;
 			Plat plat;
-			Soft soft;
-			Alcool alcool;
-			
+			Boisson boisson;
 			while(rs.next()){
 				idM = rs.getInt("idMenu");
 				idD = rs.getInt("idDessert");
 				idP = rs.getInt("idPlat");
-				idS = rs.getInt("idBoisson");
-				
+				idB = rs.getInt("idBoisson");
+
 				dessert = Modele.rechercherDessert(idD);
 				plat = Modele.rechercherPlat(idP);
-				soft = Modele.rechercherSoft(idS);
-				alcool = Modele.rechercherAlcool(idA);
+				boisson = Modele.rechercherBoisson(idB);
 				
-				lesMenus.add(new Menu(idM, dessert, plat, soft, alcool));
+				lesMenus.add(new Menu(idM, dessert, plat, boisson));
 			}
-			
+
+			rs.close();
 		}
 		catch(SQLException e){
-			System.out.println("Erreur SQL");
+			System.out.println("Erreur SQL get Menu");
 		}
 		return lesMenus;
 	}
@@ -345,6 +259,7 @@ public class Modele {
 			
 			rs.next();
 			nb = rs.getInt("nb");
+			rs.close();
 		}
 		catch(SQLException erreur){
 			System.out.println("La connexion à la base de données a échoué ou Erreur SQL…" + erreur);
@@ -360,19 +275,23 @@ public class Modele {
 			
 			int numC;
 			int nbC;
-			Date date;
+			String date;
 			
 			while(rs.next()){
 				numC = rs.getInt("numCommande");
 				nbC = rs.getInt("nbrCouverts");
-				date = (Date) rs.getObject("dateCommande");
+				date = rs.getString("dateCommande");
 				
-				lesCommandes.add(new Commande(numC, nbC, date));
+				date = date.substring(6,10) + "-" + date.substring(3,5) + "-" + date.substring(0,2);
+
+				Date d = new Date(LocalDate.parse(date));
+				lesCommandes.add(new Commande(numC, nbC, d));
 			}
-			
+
+			rs.close();
 		}
 		catch(SQLException e){
-			System.out.println("Erreur SQL");
+			System.out.println("Erreur SQL commande");
 		}
 		return lesCommandes;
 	}
@@ -385,6 +304,7 @@ public class Modele {
 			
 			rs.next();
 			nb = rs.getInt("nb");
+			rs.close();
 		}
 		catch(SQLException erreur){
 			System.out.println("La connexion à la base de données a échoué ou Erreur SQL…" + erreur);
@@ -397,16 +317,12 @@ public class Modele {
 		try{
 			ps = connexion.prepareStatement("SELECT * FROM Dessert WHERE idDessert = ?");
 			ps.setInt(1, unId);
-			rs = ps.executeQuery();
+			rs2 = ps.executeQuery();
 			
 			int idD;
-			String nomD;
-			float prixD;
 			
-			rs.next();
-			idD = rs.getInt("idDessert");
-			nomD = rs.getString("nomD");
-			prixD = rs.getFloat("prixD");
+			rs2.next();
+			idD = rs2.getInt("idDessert");
 			
 			ArrayList<Dessert> lesDesserts = Modele.getLesDesserts();
 			int nbDesserts = Modele.getNbDesserts();
@@ -417,10 +333,11 @@ public class Modele {
 			if(i < nbDesserts) {
 				leDessert = lesDesserts.get(i);
 			}
+			rs2.close();
 			
 		}
 		catch(SQLException e){
-			System.out.println("Erreur SQL");
+			System.out.println("Erreur SQL dessert");
 		}
 		return leDessert;
 	}
@@ -430,16 +347,12 @@ public class Modele {
 		try{
 			ps = connexion.prepareStatement("SELECT * FROM Plat WHERE idPlat = ?");
 			ps.setInt(1, unId);
-			rs = ps.executeQuery();
+			rs2 = ps.executeQuery();
 			
 			int idP;
-			String nomP;
-			float prixP;
 			
-			rs.next();
-			idP = rs.getInt("idPlat");
-			nomP = rs.getString("nomP");
-			prixP = rs.getFloat("prixP");
+			rs2.next();
+			idP = rs2.getInt("idPlat");
 			
 			ArrayList<Plat> lesPlats = Modele.getLesPlats();
 			int nbPlats = Modele.getNbPlats();
@@ -450,86 +363,43 @@ public class Modele {
 			if(i < nbPlats) {
 				lePlat = lesPlats.get(i);
 			}
-			
+
+			rs2.close();
 		}
 		catch(SQLException e){
-			System.out.println("Erreur SQL");
+			System.out.println("Erreur SQL plat");
 		}
 		return lePlat;
 	}
 	
-	public static Alcool rechercherAlcool(int unId) {
-		Alcool lAlcool = null;
+	public static Boisson rechercherBoisson(int unId) {
+		Boisson laBoisson = null;
 		try{
-			ps = connexion.prepareStatement("SELECT * FROM Alcool WHERE idAlcool = ?");
+			ps = connexion.prepareStatement("SELECT * FROM Boissons WHERE idBoisson = ?");
 			ps.setInt(1, unId);
-			rs = ps.executeQuery();
+			rs2 = ps.executeQuery();
 			
-			int idA;
-			String nomA;
-			float prixA;
-			String qteA;
-			float degreA;
+			int idB;
 			
-			rs.next();
-			idA = rs.getInt("idAlcool");
-			nomA = rs.getString("nomAlcool");
-			prixA = rs.getFloat("prixAlcool");
-			qteA = rs.getString("qteAlcool");
-			degreA = rs.getFloat("degreAlcool");
+			rs2.next();
+			idB = rs2.getInt("idBoisson");
 			
-			ArrayList<Alcool> lesAlcools = Modele.getLesAlcools();
-			int nbAlcools = Modele.getNbAlcools();
+			ArrayList<Boisson> lesBoissons = Modele.getLesBoissons();
+			int nbBoissons = Modele.getNbBoissons();
 			int i = 0;
-			while(i < nbAlcools && lesAlcools.get(i).getIdBoisson() != idA) {
+			while(i < nbBoissons && lesBoissons.get(i).getIdBoisson() != idB) {
 				i = i + 1;
 			}
-			if(i < nbAlcools) {
-				lAlcool = lesAlcools.get(i);
+			if(i < nbBoissons) {
+				laBoisson = lesBoissons.get(i);
 			}
-			
+
+			rs2.close();
 		}
 		catch(SQLException e){
-			System.out.println("Erreur SQL");
+			System.out.println("Erreur SQL boisson");
 		}
-		return lAlcool;
-	}
-	
-	public static Soft rechercherSoft(int unId) {
-		Soft leSoft = null;
-		try{
-			ps = connexion.prepareStatement("SELECT * FROM Soft WHERE idSoft = ?");
-			ps.setInt(1, unId);
-			rs = ps.executeQuery();
-			
-			int idS;
-			String nomS;
-			float prixS;
-			String qteS;
-			float tauxS;
-			
-			rs.next();
-			idS = rs.getInt("idSoft");
-			nomS = rs.getString("nomSoft");
-			prixS = rs.getFloat("prixSoft");
-			qteS = rs.getString("qteSoft");
-			tauxS = rs.getFloat("tauxSucre");
-			
-			ArrayList<Soft> lesSofts = Modele.getLesSofts();
-			int nbSofts = Modele.getNbSofts();
-			int i = 0;
-			while(i < nbSofts && lesSofts.get(i).getIdBoisson() != idS) {
-				i = i + 1;
-			}
-			if(i < nbSofts) {
-				leSoft = lesSofts.get(i);
-			}
-			
-		}
-		catch(SQLException e){
-			System.out.println("Erreur SQL");
-		}
-		return leSoft;
+		return laBoisson;
 	}
 	
 	public static int getMaxIdPlat(){
@@ -541,9 +411,10 @@ public class Modele {
 			
 			rs.next();
 			id = rs.getInt("id") + 1;
+			rs.close();
 		}
 		catch(SQLException e){
-			System.out.println("Erreur SQL");
+			System.out.println("Erreur SQL id plat");
 		}
 		return id;
 	}
@@ -559,10 +430,10 @@ public class Modele {
 			ps.executeUpdate();
 			
 			lesPlats.add(new Plat(id, nom, prix));
-			
+
 		}
 		catch(SQLException e){
-			System.out.println("Erreur SQL");
+			System.out.println("Erreur SQL plat");
 		}
 	}
 	
@@ -575,9 +446,10 @@ public class Modele {
 			
 			rs.next();
 			id = rs.getInt("id") + 1;
+			rs.close();
 		}
 		catch(SQLException e){
-			System.out.println("Erreur SQL");
+			System.out.println("Erreur SQL id menu");
 		}
 		return id;
 	}
@@ -613,9 +485,10 @@ public class Modele {
 			
 			rs.next();
 			id = rs.getInt("id") + 1;
+			rs.close();
 		}
 		catch(SQLException e){
-			System.out.println("Erreur SQL");
+			System.out.println("Erreur SQL id commande");
 		}
 		return id;
 	}
@@ -624,11 +497,12 @@ public class Modele {
 		try{
 			int id = Modele.getMaxIdCommande();
 			Date date = new Date (LocalDate.now());
+			String d = date.getDateFrancais();
 			
 			ps = connexion.prepareStatement("INSERT INTO Commande VALUES(?,?,?);");
 			ps.setInt(1, id);
 			ps.setInt(2, nbCouverts);
-			ps.setObject(3, date);
+			ps.setString(3, d);
 			ps.executeUpdate();
 			
 			lesCommandes.add(new Commande(id, nbCouverts, date));

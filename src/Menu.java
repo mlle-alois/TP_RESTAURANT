@@ -5,15 +5,13 @@ public class Menu {
 	private float prixM;
 	private Dessert dessertM;
 	private Plat platM;
-	private Soft softM;
-	private Alcool alcoolM;
+	private Boisson boissonM;
 	
-	public Menu(int id, Dessert dessert, Plat plat, Soft soft, Alcool alcool) {
+	public Menu(int id, Dessert dessert, Plat plat, Boisson boisson) {
 		this.idMenu = id;
 		this.dessertM = dessert;
 		this.platM = plat;
-		this.softM = soft;
-		this.alcoolM = alcool;
+		this.boissonM = boisson;
 	}
 	
 	public int getIdMenu() {
@@ -28,14 +26,10 @@ public class Menu {
 		return platM;
 	}
 
-	public Soft getSoftM() {
-		return softM;
+	
+	public Boisson getBoissonM(){
+		return boissonM;
 	}
-
-	public Alcool getAlcoolM() {
-		return alcoolM;
-	}
-
 
 
 	public String toXML() {

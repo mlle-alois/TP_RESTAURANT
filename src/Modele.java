@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
 
 public class Modele {
 
@@ -21,7 +22,7 @@ public class Modele {
 	public static void connexion(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/restaurant", "root", "");
+			connexion = DriverManager.getConnection("jdbc:mysql://172.16.203.100/2020zimmermann", "azimmermann", "123456");
 			st = connexion.createStatement();
 		}
 		catch(ClassNotFoundException erreur) {
@@ -319,8 +320,7 @@ public class Modele {
 				idM = rs.getInt("idMenu");
 				idD = rs.getInt("idDessert");
 				idP = rs.getInt("idPlat");
-				idS = rs.getInt("idSoft");
-				idA = rs.getInt("idAlcool");
+				idS = rs.getInt("idBoisson");
 				
 				dessert = Modele.rechercherDessert(idD);
 				plat = Modele.rechercherPlat(idP);
@@ -562,7 +562,80 @@ public class Modele {
 			
 		}
 		catch(SQLException e){
-			System.out.println("Erreur SQL Plat");
+			System.out.println("Erreur SQL");
+		}
+	}
+	
+	public static int getMaxIdMenu(){
+		int id = 0;
+		
+		try{
+			String sql = "SELECT MAX(idMenu) AS id FROM Menu";
+			rs = st.executeQuery(sql);
+			
+			rs.next();
+			id = rs.getInt("id") + 1;
+		}
+		catch(SQLException e){
+			System.out.println("Erreur SQL");
+		}
+		return id;
+	}
+	
+	public static void ajouterMenu(int idDessert, int idPlat, int idSoft, int idAlcool){
+		try{
+			int id = Modele.getMaxIdMenu();
+			
+			ps = connexion.prepareStatement("INSERT INTO Menu VALUES(?,?,?,?);");
+			ps.setInt(1, id);
+			ps.setInt(2, idDessert);
+			ps.setInt(3, idPlat);
+			if(idSoft != 0){
+				ps.setInt(4, idSoft);
+			}
+			else{
+				ps.setInt(4, idAlcool);
+			}
+			ps.executeUpdate();
+			
+		}
+		catch(SQLException e){
+			System.out.println("Erreur SQL Menu");
+		}
+	}
+	
+	public static int getMaxIdCommande(){
+		int id = 0;
+		
+		try{
+			String sql = "SELECT MAX(numCommande) AS id FROM Commande";
+			rs = st.executeQuery(sql);
+			
+			rs.next();
+			id = rs.getInt("id") + 1;
+		}
+		catch(SQLException e){
+			System.out.println("Erreur SQL");
+		}
+		return id;
+	}
+	
+	public static void ajouterCommande(int nbCouverts, ArrayList<Commande> lesCommandes){
+		try{
+			int id = Modele.getMaxIdCommande();
+			Date date = new Date (LocalDate.now());
+			
+			ps = connexion.prepareStatement("INSERT INTO Commande VALUES(?,?,?);");
+			ps.setInt(1, id);
+			ps.setInt(2, nbCouverts);
+			ps.setObject(3, date);
+			ps.executeUpdate();
+			
+			lesCommandes.add(new Commande(id, nbCouverts, date));
+			
+		}
+		catch(SQLException e){
+			System.out.println("Erreur SQL Commande");
 		}
 	}
 }

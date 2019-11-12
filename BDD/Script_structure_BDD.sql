@@ -28,8 +28,6 @@ CREATE TABLE Soft(
 
 CREATE TABLE Menu(
 	idMenu int(3) PRIMARY KEY,
-	nomM varchar(30),
-	prixM float(5,2),
 	idDessert int(3),
 	idPlat int(3),
 	idSoft int(3),

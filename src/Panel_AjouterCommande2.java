@@ -30,7 +30,7 @@ public class Panel_AjouterCommande2 extends JPanel {
 			plat.addItem(unPlat.getIdPlat() + ". " + unPlat.getNomP() + " " + unPlat.getPrixP() + "€");
 		}
 		for(Dessert unDessert : lesDesserts) {
-			plat.addItem(unDessert.getIdDessert() + ". " + unDessert.getNomD() + " " + unDessert.getPrixD() + "€");
+			dessert.addItem(unDessert.getIdDessert() + ". " + unDessert.getNomD() + " " + unDessert.getPrixD() + "€");
 		}
 		for(Boisson uneBoisson : lesBoissons) {
 			String type;
@@ -40,12 +40,12 @@ public class Panel_AjouterCommande2 extends JPanel {
 			else {
 				type = "Alcool";
 			}
-			plat.addItem(uneBoisson.getIdBoisson() + ". " + type + " : " + uneBoisson.getNomB() + " " + uneBoisson.getPrixB() + "€");
+			boisson.addItem(type + " : " + uneBoisson.getIdBoisson() + ". " + uneBoisson.getNomB() + " " + uneBoisson.getPrixB() + "€");
 		}
 		
 		boutonAjouterCommande = new JButton("Passer la commande");
-		boutonAjouterCommande.setName("Commande");
-		this.boutonAjouterCommande.addActionListener(new ActionAjouter(fenetre, boutonAjouterCommande, lesCommandes, nbCommandes, lblErreur, plat, dessert, boisson, i+1));
+		boutonAjouterCommande.setName("Commande2");
+		this.boutonAjouterCommande.addActionListener(new ActionAjouter(fenetre, boutonAjouterCommande, lesCommandes, nbCommandes, nbCouverts, lblErreur, plat, dessert, boisson, i+1));
 		
 		if(i == 0) {
 			this.boutonAnnulerCommande = new JButton("Annuler");

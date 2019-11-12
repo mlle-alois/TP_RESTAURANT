@@ -2,7 +2,6 @@
 public class Menu {
 
 	private int idMenu;
-	private float prixM;
 	private Dessert dessertM;
 	private Plat platM;
 	private Boisson boissonM;
@@ -33,7 +32,10 @@ public class Menu {
 
 
 	public String toXML() {
-		
-		return null;
+		String chaine = "<Menu>\n\t<idMenu>" + this.idMenu + "</idMenu>";
+		chaine += "\n\t<Plat>\n\t" + this.platM.toXML() + "</Plat>";
+		chaine += "\n\t<Dessert>\n\t" + this.dessertM.toXML() + "</Dessert>";
+		chaine += "\n</Menu>";
+		return chaine;
 	}
 }

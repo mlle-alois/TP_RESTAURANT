@@ -19,7 +19,7 @@ public class Soft extends Boisson{
 		chaine += "\n\t<prixSoft>" + this.prixB + "</prixSoft>";
 		chaine += "\n\t<qteSoft>" + this.qteB + "</qteSoft>";
 		chaine += "\n\t<tauxSucre>" + this.tauxSucre + "</tauxSucre>";
-		chaine += "\n</AlcoSoftol>";
+		chaine += "\n</Soft>";
 		return chaine;
 	}
 }

@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -78,10 +80,15 @@ public class ModeleTest {
 		Assert.assertEquals("Nombre de commandes dans la liste incorrect", 0, Modele.getLesCommandes().size());
 	}
 	
-	/*@Test
+	@Test
 	public void testIdMaxPlat(){
 		Assert.assertEquals("Id maximum incorrect", 3, Modele.getMaxIdPlat());
-	}*/
+	}
+	
+	@Test
+	public void testGetNbMenusDate(){
+		Assert.assertEquals("Nb menus commandés incorrect", 8, Modele.getNbMenus(new Date(LocalDate.parse("2019-11-12"))));
+	}
 	
 
 }

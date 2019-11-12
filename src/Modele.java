@@ -512,4 +512,24 @@ public class Modele {
 			System.out.println("Erreur SQL Commande");
 		}
 	}
+	
+	public static int getNbMenus(Date date) {
+		int nb = 0;
+		try{
+			String d = date.getDateFrancais();
+			
+			ps = connexion.prepareStatement("SELECT count(idMenu) as nb FROM Menu M, Commande C, Passer P WHERE M.idMenu = P.idMenu And C.numCommande = p.numCommande AND dateCommande = ?");
+			ps.setString(1, d);
+			rs = ps.executeQuery();
+			
+			rs.next();
+			nb = rs.getInt("nb");
+			
+			rs.close();
+		}
+		catch(SQLException e){
+			System.out.println("Erreur SQL nb menus date");
+		}
+		return nb;
+	}
 }

@@ -87,7 +87,7 @@ public class ModeleTest {
 	
 	@Test
 	public void testGetNbMenusDate(){
-		Assert.assertEquals("Nb menus commandés incorrect", 8, Modele.getNbMenus(new Date(LocalDate.parse("2019-11-12"))));
+		Assert.assertEquals("Nb menus commandés incorrect", 21, Modele.getNbMenus(new Date(LocalDate.parse("2019-11-12"))));
 	}
 	
 

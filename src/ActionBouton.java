@@ -17,7 +17,7 @@ public class ActionBouton implements ActionListener{
 	private int nbPlat;
 	private ArrayList<Commande> lesCommandes;
 	private int nbCommandes;
-	
+
 	public ActionBouton(JMenuBar menu, JFrame fenetre, JTextField jtfMail, JPasswordField jpfMdp, JButton bouton, JLabel lblErreur) {
 		this.menu = menu;
 		this.fenetre = fenetre;
@@ -26,14 +26,14 @@ public class ActionBouton implements ActionListener{
 		this.bouton = bouton;
 		this.lblErreur = lblErreur;
 	}
-	
+
 	public ActionBouton(JFrame fenetre, ArrayList<Plat> lesPlats, int nb, JButton bouton){
 		this.fenetre = fenetre;
 		this.lesPlats = lesPlats;
 		this.nbPlat = nb;
 		this.bouton = bouton;
 	}
-	
+
 	public ActionBouton(ArrayList<Commande> lesCommandes, JFrame fenetre, int nb, JButton bouton){
 		this.fenetre = fenetre;
 		this.lesCommandes = lesCommandes;
@@ -71,6 +71,12 @@ public class ActionBouton implements ActionListener{
 				if(bouton.getName().equals("Commande")){
 					this.fenetre.setContentPane(new Panel_AjouterCommande(lesCommandes, fenetre, nbCommandes));
 					this.fenetre.revalidate();
+				}
+				else{
+					if(bouton.getName().equals("PlatS")){
+						this.fenetre.setContentPane(new Panel_SupprimerPlat(fenetre, lesPlats, nbPlat));
+						this.fenetre.revalidate();
+					}
 				}
 			}
 		}

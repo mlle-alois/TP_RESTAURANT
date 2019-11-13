@@ -33,8 +33,14 @@ public class Panel_Menus extends JPanel{
 			prix = prix + menu.getPlatM().getPrixP();
 			data[i][2] = menu.getDessertM().getNomD();
 			prix = prix + menu.getDessertM().getPrixD();
-			data[i][3] = menu.getBoissonM().getNomB();
-			prix = prix + menu.getBoissonM().getPrixB();
+			if(menu.getAlcoolM() == null){
+				data[i][3] = menu.getSoftM().getNomB();
+				prix = prix + menu.getSoftM().getPrixB();
+			}
+			else{
+				data[i][3] = menu.getAlcoolM().getNomB();
+				prix = prix + menu.getAlcoolM().getPrixB();
+			}
 			data[i][4] = prix + "€";
 			i += 1;
 		}

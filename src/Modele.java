@@ -229,7 +229,9 @@ public class Modele {
 			
 			Dessert dessert;
 			Plat plat;
-			Boisson boisson;
+			Soft soft = new Soft(1, "x", (float) 1, "15", 12);
+			Alcool alcool = null;
+			
 			while(rs.next()){
 				idM = rs.getInt("idMenu");
 				idD = rs.getInt("idDessert");
@@ -238,9 +240,15 @@ public class Modele {
 
 				dessert = Modele.rechercherDessert(idD);
 				plat = Modele.rechercherPlat(idP);
-				boisson = Modele.rechercherBoisson(idB);
-				
-				lesMenus.add(new Menu(idM, dessert, plat, boisson));
+				/*if(Modele.rechercherBoisson(idB) instanceof Soft){
+					soft = (Soft) Modele.rechercherBoisson(idB);
+					alcool = null;
+				}
+				else{
+					alcool = (Alcool) Modele.rechercherBoisson(idB);
+					soft = null;
+				}*/
+				lesMenus.add(new Menu(idM, dessert, plat, soft, alcool));
 			}
 
 			rs.close();
@@ -320,19 +328,15 @@ public class Modele {
 			rs2 = ps.executeQuery();
 			
 			int idD;
+			String nomD;
+			float prixD;
 			
 			rs2.next();
 			idD = rs2.getInt("idDessert");
+			nomD = rs2.getString("nomD");
+			prixD = rs2.getFloat("prixD");
 			
-			ArrayList<Dessert> lesDesserts = Modele.getLesDesserts();
-			int nbDesserts = Modele.getNbDesserts();
-			int i = 0;
-			while(i < nbDesserts && lesDesserts.get(i).getIdDessert() != idD) {
-				i = i + 1;
-			}
-			if(i < nbDesserts) {
-				leDessert = lesDesserts.get(i);
-			}
+			leDessert = new Dessert(idD, nomD, prixD);
 			rs2.close();
 			
 		}
@@ -348,22 +352,17 @@ public class Modele {
 			ps = connexion.prepareStatement("SELECT * FROM Plat WHERE idPlat = ?");
 			ps.setInt(1, unId);
 			rs2 = ps.executeQuery();
-			
-			int idP;
+
+			int idD;
+			String nomD;
+			float prixD;
 			
 			rs2.next();
-			idP = rs2.getInt("idPlat");
+			idD = rs2.getInt("idPlat");
+			nomD = rs2.getString("nomP");
+			prixD = rs2.getFloat("prixP");
 			
-			ArrayList<Plat> lesPlats = Modele.getLesPlats();
-			int nbPlats = Modele.getNbPlats();
-			int i = 0;
-			while(i < nbPlats && lesPlats.get(i).getIdPlat() != idP) {
-				i = i + 1;
-			}
-			if(i < nbPlats) {
-				lePlat = lesPlats.get(i);
-			}
-
+			lePlat = new Plat(idD, nomD, prixD);
 			rs2.close();
 		}
 		catch(SQLException e){
@@ -437,6 +436,19 @@ public class Modele {
 		}
 	}
 	
+	public static void supprimerPlat(int id){
+		try{
+			
+			ps = connexion.prepareStatement("DELETE FROM PLAT WHERE idPlat = ?;");
+			ps.setInt(1, id);
+			ps.executeUpdate();
+
+		}
+		catch(SQLException e){
+			System.out.println("Erreur SQL supprimer plat");
+		}
+	}
+	
 	public static int getMaxIdMenu(){
 		int id = 0;
 		
@@ -454,7 +466,7 @@ public class Modele {
 		return id;
 	}
 	
-	public static void ajouterMenu(int idDessert, int idPlat, int idSoft, int idAlcool){
+	public static void ajouterMenu(int idDessert, int idPlat, int idSoft, int idAlcool, int numCommande){
 		try{
 			int id = Modele.getMaxIdMenu();
 			
@@ -469,10 +481,24 @@ public class Modele {
 				ps.setInt(4, idAlcool);
 			}
 			ps.executeUpdate();
-			
+
+			Modele.ajouterPasser(id, numCommande);
 		}
 		catch(SQLException e){
 			System.out.println("Erreur SQL Menu");
+		}
+	}
+	
+	public static void ajouterPasser(int id, int numCommande){
+		try{
+			
+			ps = connexion.prepareStatement("INSERT INTO Passer VALUES(?,?);");
+			ps.setInt(1, id);
+			ps.setInt(2, numCommande);
+			ps.executeUpdate();
+		}
+		catch(SQLException e){
+			System.out.println("Erreur SQL Passer");
 		}
 	}
 	
@@ -493,9 +519,10 @@ public class Modele {
 		return id;
 	}
 	
-	public static void ajouterCommande(int nbCouverts, ArrayList<Commande> lesCommandes){
+	public static int ajouterCommande(int nbCouverts, ArrayList<Commande> lesCommandes){
+		int id = 0;
 		try{
-			int id = Modele.getMaxIdCommande();
+			id = Modele.getMaxIdCommande();
 			Date date = new Date (LocalDate.now());
 			String d = date.getDateFrancais();
 			
@@ -511,6 +538,7 @@ public class Modele {
 		catch(SQLException e){
 			System.out.println("Erreur SQL Commande");
 		}
+		return id;
 	}
 	
 	public static int getNbMenus(Date date) {

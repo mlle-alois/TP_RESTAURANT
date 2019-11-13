@@ -12,7 +12,7 @@ public class Panel_AjouterCommande2 extends JPanel {
 	private JComboBox plat, dessert, boisson;
 	private JButton boutonAjouterCommande, boutonAnnulerCommande;
 	
-	public Panel_AjouterCommande2(ArrayList<Commande> lesCommandes, JFrame fenetre, int nbCommandes, int nbCouverts, int i, ArrayList<Plat> lesPlats, ArrayList<Dessert> lesDesserts, ArrayList<Boisson> lesBoissons){
+	public Panel_AjouterCommande2(ArrayList<Commande> lesCommandes, JFrame fenetre, int nbCommandes, int nbCouverts, int i, ArrayList<Plat> lesPlats, ArrayList<Dessert> lesDesserts, ArrayList<Boisson> lesBoissons, int idCommande){
 		
 		this.setLayout(new GridBagLayout());
 		
@@ -45,7 +45,7 @@ public class Panel_AjouterCommande2 extends JPanel {
 		
 		boutonAjouterCommande = new JButton("Passer la commande");
 		boutonAjouterCommande.setName("Commande2");
-		this.boutonAjouterCommande.addActionListener(new ActionAjouter(fenetre, boutonAjouterCommande, lesCommandes, nbCommandes, nbCouverts, lblErreur, plat, dessert, boisson, i+1));
+		this.boutonAjouterCommande.addActionListener(new ActionAjouter(fenetre, boutonAjouterCommande, lesCommandes, nbCommandes, nbCouverts, lblErreur, plat, dessert, boisson, i+1, idCommande));
 		
 		if(i == 0) {
 			this.boutonAnnulerCommande = new JButton("Annuler");

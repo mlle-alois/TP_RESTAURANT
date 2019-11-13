@@ -25,6 +25,7 @@ public class ActionAjouter implements ActionListener{
 	private JComboBox plat;
 	private JComboBox boisson;
 	private JComboBox dessert;
+	private int idCommande;
 
 	public ActionAjouter(JButton bouton, JFrame fenetre, ArrayList<Plat> lesPlats, int nb, JTextField jtfNom, JTextField jtfPrix, JLabel lblErreur){
 		this.bouton = bouton;
@@ -66,9 +67,10 @@ public class ActionAjouter implements ActionListener{
 		this.jtfNb = jtfNb;
 		this.lblErreur = lblErreur;
 		this.i = i;
+		this.idCommande = 0;
 	}
 
-	public ActionAjouter(JFrame fenetre, JButton bouton, ArrayList<Commande> lesCommandes, int nb, int nbC, JLabel lblErreur, JComboBox plat, JComboBox dessert, JComboBox boisson, int i){
+	public ActionAjouter(JFrame fenetre, JButton bouton, ArrayList<Commande> lesCommandes, int nb, int nbC, JLabel lblErreur, JComboBox plat, JComboBox dessert, JComboBox boisson, int i, int idCommande){
 		this.bouton = bouton;
 		this.fenetre = fenetre;
 		this.lesCommandes = lesCommandes;
@@ -79,6 +81,7 @@ public class ActionAjouter implements ActionListener{
 		this.dessert = dessert;
 		this.boisson = boisson;
 		this.i = i;
+		this.idCommande = idCommande;
 	}
 
 	@Override
@@ -144,7 +147,7 @@ public class ActionAjouter implements ActionListener{
 								ArrayList<Plat> lesPlats = Modele.getLesPlats();
 								ArrayList<Dessert> lesDesserts = Modele.getLesDesserts();
 								ArrayList<Boisson> lesBoissons = Modele.getLesBoissons();
-								fenetre.setContentPane(new Panel_AjouterCommande2(lesCommandes, fenetre, nb, nbC, i, lesPlats, lesDesserts, lesBoissons));
+								fenetre.setContentPane(new Panel_AjouterCommande2(lesCommandes, fenetre, nb, nbC, i, lesPlats, lesDesserts, lesBoissons, idCommande));
 								fenetre.revalidate();
 							}
 						}
@@ -154,7 +157,7 @@ public class ActionAjouter implements ActionListener{
 							if(i <= nbC){
 								if(i > 0){
 									String valeur = (String) plat.getSelectedItem();
-									float nb;
+									float n;
 									int idDessert = -1;
 									int idPlat = -1;
 									int idSoft = -1;
@@ -163,8 +166,8 @@ public class ActionAjouter implements ActionListener{
 									if(valeur.charAt(1) == '.'){
 										try{
 											String c = valeur.charAt(0) + "";
-											nb = Float.parseFloat(c);
-											idPlat = (int) nb;
+											n = Float.parseFloat(c);
+											idPlat = (int) n;
 										}
 										catch(Exception exception){
 											lblErreur.setText("Erreur de type");
@@ -174,8 +177,8 @@ public class ActionAjouter implements ActionListener{
 										if(valeur.charAt(2) == '.'){
 											try{
 												String c = valeur.substring(0,2);
-												nb = Float.parseFloat(c);
-												idPlat = (int) nb;
+												n = Float.parseFloat(c);
+												idPlat = (int) n;
 											}
 											catch(Exception exception){
 												lblErreur.setText("Erreur de type");
@@ -184,8 +187,8 @@ public class ActionAjouter implements ActionListener{
 										else{
 											try{
 												String c = valeur.substring(0,3);
-												nb = Float.parseFloat(c);
-												idPlat = (int) nb;
+												n = Float.parseFloat(c);
+												idPlat = (int) n;
 											}
 											catch(Exception exception){
 												lblErreur.setText("Erreur de type");
@@ -197,8 +200,8 @@ public class ActionAjouter implements ActionListener{
 									if(valeur.charAt(1) == '.'){
 										try{
 											String c = valeur.charAt(0) + "";
-											nb = Float.parseFloat(c);
-											idDessert = (int) nb;
+											n = Float.parseFloat(c);
+											idDessert = (int) n;
 										}
 										catch(Exception exception){
 											lblErreur.setText("Erreur de type");
@@ -208,8 +211,8 @@ public class ActionAjouter implements ActionListener{
 										if(valeur.charAt(2) == '.'){
 											try{
 												String c = valeur.substring(0,2);
-												nb = Float.parseFloat(c);
-												idDessert = (int) nb;
+												n = Float.parseFloat(c);
+												idDessert = (int) n;
 											}
 											catch(Exception exception){
 												lblErreur.setText("Erreur de type");
@@ -218,8 +221,8 @@ public class ActionAjouter implements ActionListener{
 										else{
 											try{
 												String c = valeur.substring(0,3);
-												nb = Float.parseFloat(c);
-												idDessert = (int) nb;
+												n = Float.parseFloat(c);
+												idDessert = (int) n;
 											}
 											catch(Exception exception){
 												lblErreur.setText("Erreur de type");
@@ -233,8 +236,8 @@ public class ActionAjouter implements ActionListener{
 										if(valeur.charAt(8) == '.'){
 											try{
 												String c = valeur.charAt(7) + "";
-												nb = Float.parseFloat(c);
-												idSoft = (int) nb;
+												n = Float.parseFloat(c);
+												idSoft = (int) n;
 												idAlcool = 0;
 											}
 											catch(Exception exception){
@@ -245,8 +248,8 @@ public class ActionAjouter implements ActionListener{
 											if(valeur.charAt(9) == '.'){
 												try{
 													String c = valeur.substring(7,9);
-													nb = Float.parseFloat(c);
-													idSoft = (int) nb;
+													n = Float.parseFloat(c);
+													idSoft = (int) n;
 													idAlcool = 0;
 												}
 												catch(Exception exception){
@@ -256,8 +259,8 @@ public class ActionAjouter implements ActionListener{
 											else{
 												try{
 													String c = valeur.substring(7,10);
-													nb = Float.parseFloat(c);
-													idSoft = (int) nb;
+													n = Float.parseFloat(c);
+													idSoft = (int) n;
 													idAlcool = 0;
 												}
 												catch(Exception exception){
@@ -271,8 +274,8 @@ public class ActionAjouter implements ActionListener{
 										if(valeur.charAt(10) == '.'){
 											try{
 												String c = valeur.charAt(9) + "";
-												nb = Float.parseFloat(c);
-												idAlcool = (int) nb;
+												n = Float.parseFloat(c);
+												idAlcool = (int) n;
 												idSoft = 0;
 											}
 											catch(Exception exception){
@@ -283,8 +286,8 @@ public class ActionAjouter implements ActionListener{
 											if(valeur.charAt(11) == '.'){
 												try{
 													String c = valeur.substring(9,11);
-													nb = Float.parseFloat(c);
-													idAlcool = (int) nb;
+													n = Float.parseFloat(c);
+													idAlcool = (int) n;
 													idSoft = 0;
 												}
 												catch(Exception exception){
@@ -294,8 +297,8 @@ public class ActionAjouter implements ActionListener{
 											else{
 												try{
 													String c = valeur.substring(9,12);
-													nb = Float.parseFloat(c);
-													idAlcool = (int) nb;
+													n = Float.parseFloat(c);
+													idAlcool = (int) n;
 													idSoft = 0;
 												}
 												catch(Exception exception){
@@ -304,21 +307,23 @@ public class ActionAjouter implements ActionListener{
 											}
 										}
 									}
-									Modele.ajouterMenu(idDessert, idPlat, idSoft, idAlcool);
+									if(i == 1){
+										idCommande  = Modele.ajouterCommande(nbC, lesCommandes);
+									}
+									Modele.ajouterMenu(idDessert, idPlat, idSoft, idAlcool, idCommande);
 								}
 								ArrayList<Plat> lesPlats = Modele.getLesPlats();
 								ArrayList<Dessert> lesDesserts = Modele.getLesDesserts();
 								ArrayList<Boisson> lesBoissons = Modele.getLesBoissons();
 								if(i < nbC){
-									fenetre.setContentPane(new Panel_AjouterCommande2(lesCommandes, fenetre, nb, nbC, i, lesPlats, lesDesserts, lesBoissons));
+									fenetre.setContentPane(new Panel_AjouterCommande2(lesCommandes, fenetre, nb, nbC, i, lesPlats, lesDesserts, lesBoissons, idCommande));
 									fenetre.revalidate();
 								}
-							}
-							if(i == nbC){
-								Modele.ajouterCommande(nbC, lesCommandes);
-								nb ++;
-								fenetre.setContentPane(new Panel_Commandes(fenetre, lesCommandes, nb));
-								fenetre.revalidate();
+								if(i == nbC){
+									nb ++;
+									fenetre.setContentPane(new Panel_Commandes(fenetre, lesCommandes, nb));
+									fenetre.revalidate();
+								}
 							}
 						}
 					}

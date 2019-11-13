@@ -4,13 +4,15 @@ public class Menu {
 	private int idMenu;
 	private Dessert dessertM;
 	private Plat platM;
-	private Boisson boissonM;
+	private Soft softM;
+	private Alcool alcoolM;
 	
-	public Menu(int id, Dessert dessert, Plat plat, Boisson boisson) {
+	public Menu(int id, Dessert dessert, Plat plat, Soft soft, Alcool alcool) {
 		this.idMenu = id;
 		this.dessertM = dessert;
 		this.platM = plat;
-		this.boissonM = boisson;
+		this.softM = soft;
+		this.alcoolM = alcool;
 	}
 	
 	public int getIdMenu() {
@@ -25,11 +27,14 @@ public class Menu {
 		return platM;
 	}
 
-	
-	public Boisson getBoissonM(){
-		return boissonM;
+
+	public Soft getSoftM() {
+		return softM;
 	}
 
+	public Alcool getAlcoolM() {
+		return alcoolM;
+	}
 
 	public String toXML() {
 		String chaine = "<Menu>\n\t<idMenu>" + this.idMenu + "</idMenu>";

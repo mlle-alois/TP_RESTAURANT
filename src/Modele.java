@@ -23,8 +23,8 @@ public class Modele {
 	public static void connexion(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connexion = DriverManager.getConnection("jdbc:mysql://172.16.203.100/2020zimmermann", "azimmermann", "123456");
-			st = connexion.createStatement();
+			connexion = DriverManager.getConnection("jdbc:mysql://localhost/caal", "root", "");
+			//st = connexion.createStatement();
 		}
 		catch(ClassNotFoundException erreur) {
 			System.out.println("Driver non chargé !" + erreur);

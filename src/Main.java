@@ -6,7 +6,7 @@ public class Main {
 
 		Modele.connexion();
 		
-		Fenetre_principale uneFenetre = new Fenetre_principale();
+		//Fenetre_principale uneFenetre = new Fenetre_principale();
 		
 	}
 }

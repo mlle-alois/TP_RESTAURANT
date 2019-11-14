@@ -22,9 +22,9 @@ public class Modele {
 
 	public static void connexion(){
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connexion = DriverManager.getConnection("jdbc:mysql://localhost/caal", "root", "");
-			//st = connexion.createStatement();
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connexion = DriverManager.getConnection("jdbc:mysql://localhost/restaurant?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "root", "");
+			st = connexion.createStatement();
 		}
 		catch(ClassNotFoundException erreur) {
 			System.out.println("Driver non chargé !" + erreur);

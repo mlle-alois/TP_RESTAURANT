@@ -23,8 +23,8 @@ public class Modele {
 	public static void connexion(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connexion = DriverManager.getConnection("jdbc:mysql://localhost/caal", "root", "");
-			//st = connexion.createStatement();
+			connexion = DriverManager.getConnection("jdbc:mysql://172.16.203.100/2020zimmermann", "azimmermann", "123456");
+			st = connexion.createStatement();
 		}
 		catch(ClassNotFoundException erreur) {
 			System.out.println("Driver non chargé !" + erreur);
@@ -546,7 +546,7 @@ public class Modele {
 		try{
 			String d = date.getDateFrancais();
 			
-			ps = connexion.prepareStatement("SELECT count(idMenu) as nb FROM Menu M, Commande C, Passer P WHERE M.idMenu = P.idMenu And C.numCommande = p.numCommande AND dateCommande = ?");
+			ps = connexion.prepareStatement("SELECT count(M.idMenu) as nb FROM Menu M, Commande C, Passer P WHERE M.idMenu = P.idMenu And C.numCommande = p.numCommande AND dateCommande = ?");
 			ps.setString(1, d);
 			rs = ps.executeQuery();
 			

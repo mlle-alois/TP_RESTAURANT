@@ -32,7 +32,7 @@ public class Panel_RechercherMenu extends JPanel {
 		
 		boutonRechercher = new JButton("Rechercher");
 		boutonRechercher.setName("Menu");
-		this.boutonRechercher.addActionListener(new ActionRechercher(boutonRechercher, fenetre, lesMenus, nbMenus, jtf, lblErreur));
+		this.boutonRechercher.addActionListener(new ActionRechercher(boutonRechercher, fenetre, lesMenus, nbMenus, jtf, lblErreur, lblNb));
 		
 		this.boutonAnnuler = new JButton("Annuler");
 		this.boutonAnnuler.setName("Menu");

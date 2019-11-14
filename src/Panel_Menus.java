@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -9,7 +10,9 @@ public class Panel_Menus extends JPanel{
 	private JLabel lblNb;
 	private JTable tableau;
 	private JButton boutonRechercher;
+	private JButton boutonXML;
 	private JPanel panelHaut;
+	private JPanel panelMilieu;
 	private JPanel panelBas;
 
 	public Panel_Menus(int nbMenus, ArrayList<Menu> lesMenus, JFrame fenetre){
@@ -18,9 +21,13 @@ public class Panel_Menus extends JPanel{
 
 		this.boutonRechercher = new JButton("Rechercher les menus d'un jour");
 		this.boutonRechercher.setName("Menu");
+		this.boutonXML = new JButton("Voir XML");
+		this.boutonXML.setName("Menu");
 		this.boutonRechercher.addActionListener( new ActionBouton(boutonRechercher, lesMenus, fenetre, nbMenus, -1));
+		this.boutonXML.addActionListener( new ActionBoutonXML(fenetre, nbMenus, lesMenus, boutonXML));
 		
 		this.panelHaut = new JPanel();
+		this.panelMilieu = new JPanel();
 		this.panelBas = new JPanel();
 		
 		lblNb = new JLabel("Nombre de menus : " + nbMenus);
@@ -53,13 +60,23 @@ public class Panel_Menus extends JPanel{
 		this.tableau = new JTable(data,title);
 		JScrollPane scrollPane = new JScrollPane(tableau);
 		
-		this.panelBas.add(scrollPane);
+		this.panelMilieu.add(scrollPane);
 		
+
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		panelBas.add(boutonXML, c);
+
 		this.panelHaut.add(lblNb, BorderLayout.WEST);
 		this.panelHaut.add(boutonRechercher, BorderLayout.EAST);
 		
 		this.add(panelHaut, BorderLayout.NORTH);
-		this.add(panelBas, BorderLayout.CENTER);
+		this.add(panelMilieu, BorderLayout.CENTER);
+		this.add(panelBas, BorderLayout.SOUTH);
+		
+		
+		
 	}
 	
 }

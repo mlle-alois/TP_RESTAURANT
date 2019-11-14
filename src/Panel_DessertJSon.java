@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 
-public class Panel_PlatCSV extends JPanel {
+public class Panel_DessertJSon extends JPanel {
 
 	private JLabel lblCSV;
 	private JButton boutonRetour;
 	
-	public Panel_PlatCSV(JFrame fenetre, ArrayList<Plat> lesPlats, int nbPlat){
+	public Panel_DessertJSon(JFrame fenetre, ArrayList<Dessert> lesDesserts, int nbDessert){
 		
 		this.setLayout(new BorderLayout());
 		boutonRetour = new JButton("Retour");
-		boutonRetour.setName("Plat");
-		boutonRetour.addActionListener(new ActionAnnulerAjout(boutonRetour, fenetre, lesPlats, nbPlat));
+		boutonRetour.setName("Dessert");
+		boutonRetour.addActionListener(new ActionAnnulerAjout(boutonRetour, lesDesserts, nbDessert, fenetre));
 		
 		String xml = "<HTML>";
-		for(Plat plat : lesPlats){
-			xml = xml + plat.toCSV() + "<br/><br/>";
+		for(Dessert dessert : lesDesserts){
+			xml = xml + dessert.toJSon() + "<br/>";
 		}
 		xml = xml + "</HTML>";
 		lblCSV = new JLabel(xml);

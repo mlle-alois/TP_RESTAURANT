@@ -14,14 +14,16 @@ public class ActionRechercher implements ActionListener{
 	private int nb;
 	private JTextField jtfDate;
 	private JLabel lblErreur;
+	private JLabel lblNb;
 
-	public ActionRechercher(JButton bouton, JFrame fenetre, ArrayList<Menu> lesMenus, int nb, JTextField jtfDate, JLabel lblErreur){
+	public ActionRechercher(JButton bouton, JFrame fenetre, ArrayList<Menu> lesMenus, int nb, JTextField jtfDate, JLabel lblErreur, JLabel lblNb){
 		this.bouton = bouton;
 		this.fenetre = fenetre;
 		this.lesMenus = lesMenus;
 		this.nb = nb;
 		this.jtfDate = jtfDate;
 		this.lblErreur = lblErreur;
+		this.lblNb = lblNb;
 	}
 
 	@Override
@@ -44,22 +46,28 @@ public class ActionRechercher implements ActionListener{
 					extraitEntier = (int) extraitFloat;
 					if(extraitEntier < 2000 || extraitEntier > 2050){
 						lblErreur.setText("Veuillez saisir une année valide (aaaa-mm-jj)");
+						lblNb.setText("");
 					}
 					else{
+						lblErreur.setText("");
 						extrait = d.substring(5,7);
 						extraitFloat = Float.parseFloat(extrait);
 						extraitEntier = (int) extraitFloat;
 						if(extraitEntier < 1 || extraitEntier > 12){
 							lblErreur.setText("Veuillez saisir un mois valide (aaaa-mm-jj)");
+							lblNb.setText("");
 						}
 						else{
+							lblErreur.setText("");
 							extrait = d.substring(8,10);
 							extraitFloat = Float.parseFloat(extrait);
 							extraitEntier = (int) extraitFloat;
 							if(extraitEntier < 1 || extraitEntier > 31){
 								lblErreur.setText("Veuillez saisir un jour valide (aaaa-mm-jj)");
+								lblNb.setText("");
 							}
 							else{
+								lblErreur.setText("");
 								date = new Date(LocalDate.parse(d));
 								int nbMenuJour = -1;
 								try{
@@ -76,6 +84,7 @@ public class ActionRechercher implements ActionListener{
 				}
 				catch(Exception exception){
 					lblErreur.setText("Veuillez saisir une date valide (aaaa-mm-jj)");
+					lblNb.setText("");
 				}
 			}
 		}

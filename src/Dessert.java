@@ -32,9 +32,9 @@ public class Dessert {
 	}
 	
 	public String toJSon(){
-		String chaine = "{\n\t\"idDessert\" : " + this.idDessert + ",";
-		chaine += "\n\t\"nomDessert\" : \"" + this.nomD + "\",";
-		chaine += "\n\t\"prixDessert\" : " + this.prixD + ",\n}";
+		String chaine = "{<br/>\"idDessert\" : " + this.idDessert + ",";
+		chaine += "<br/>\"nomDessert\" : \"" + this.nomD + "\",";
+		chaine += "<br/>\"prixDessert\" : " + this.prixD + ",<br/>}";
 		return chaine;
 	}
 	

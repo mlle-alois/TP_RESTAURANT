@@ -32,7 +32,7 @@ public class Plat {
 	}
 	
 	public String toCSV(){
-		String chaine = "idPlat;nomPlat;prixPlat\n";
+		String chaine = "idPlat;nomPlat;prixPlat<br/>";
 		chaine += this.idPlat + ";" + this.nomP + ";" + this.prixP;
 		return chaine;
 	}

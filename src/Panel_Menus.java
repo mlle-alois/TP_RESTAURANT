@@ -8,12 +8,17 @@ public class Panel_Menus extends JPanel{
 	
 	private JLabel lblNb;
 	private JTable tableau;
+	private JButton boutonRechercher;
 	private JPanel panelHaut;
 	private JPanel panelBas;
 
 	public Panel_Menus(int nbMenus, ArrayList<Menu> lesMenus, JFrame fenetre){
 
 		this.setLayout(new BorderLayout());
+
+		this.boutonRechercher = new JButton("Rechercher les menus d'un jour");
+		this.boutonRechercher.setName("Menu");
+		this.boutonRechercher.addActionListener( new ActionBouton(boutonRechercher, lesMenus, fenetre, nbMenus, -1));
 		
 		this.panelHaut = new JPanel();
 		this.panelBas = new JPanel();
@@ -50,7 +55,8 @@ public class Panel_Menus extends JPanel{
 		
 		this.panelBas.add(scrollPane);
 		
-		this.panelHaut.add(lblNb);
+		this.panelHaut.add(lblNb, BorderLayout.WEST);
+		this.panelHaut.add(boutonRechercher, BorderLayout.EAST);
 		
 		this.add(panelHaut, BorderLayout.NORTH);
 		this.add(panelBas, BorderLayout.CENTER);

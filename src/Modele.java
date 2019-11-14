@@ -546,7 +546,7 @@ public class Modele {
 		try{
 			String d = date.getDateFrancais();
 			
-			ps = connexion.prepareStatement("SELECT count(idMenu) as nb FROM Menu M, Commande C, Passer P WHERE M.idMenu = P.idMenu And C.numCommande = p.numCommande AND dateCommande = ?");
+			ps = connexion.prepareStatement("SELECT count(M.idMenu) as nb FROM Menu M, Commande C, Passer P WHERE M.idMenu = P.idMenu And C.numCommande = p.numCommande AND dateCommande = ?");
 			ps.setString(1, d);
 			rs = ps.executeQuery();
 			

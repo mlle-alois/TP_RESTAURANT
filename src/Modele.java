@@ -22,8 +22,8 @@ public class Modele {
 
 	public static void connexion(){
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connexion = DriverManager.getConnection("jdbc:mysql://172.16.203.100/2020zimmermann", "azimmermann", "123456");
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connexion = DriverManager.getConnection("jdbc:mysql://localhost/restaurant?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "root", "");
 			st = connexion.createStatement();
 		}
 		catch(ClassNotFoundException erreur) {

@@ -25,8 +25,11 @@ public class Modele {
 	 */
 	public static void connexion(){
 		try {
+			//récupération du driver
 			Class.forName("com.mysql.jdbc.Driver");
+			//connexion à la bdd
 			connexion = DriverManager.getConnection("jdbc:mysql://172.16.203.100/2020zimmermann", "azimmermann", "123456");
+			//création du statement
 			st = connexion.createStatement();
 		}
 		catch(ClassNotFoundException erreur) {
@@ -42,6 +45,7 @@ public class Modele {
 	 */
 	public static void deconnexion(){
 		try {
+			//clôture de la connexion
 			connexion.close();
 		} catch (SQLException erreur) {
 			System.out.println("La déconnexion à la base de données a échouée ou Erreur SQL…" + erreur);
@@ -118,6 +122,7 @@ public class Modele {
 	public static int getNbPlats(){
 		int nb = 0;
 		try{
+			//compte du nombre des plats de la bdd
 			String sql = "SELECT count(*) as nb from PLAT";
 			rs = st.executeQuery(sql);
 			
@@ -138,6 +143,7 @@ public class Modele {
 	public static ArrayList<Dessert> getLesDesserts(){
 		ArrayList<Dessert> lesDesserts = new ArrayList<Dessert>();
 		try{
+			//récupération des desserts de la bdd
 			String sql = "SELECT * FROM Dessert";
 			rs = st.executeQuery(sql);
 			
@@ -150,6 +156,7 @@ public class Modele {
 				nomD = rs.getString("nomD");
 				prixD = rs.getFloat("prixD");
 				
+				//ajout des desserts à la liste
 				lesDesserts.add(new Dessert(idD, nomD, prixD));
 			}
 			rs.close();
@@ -168,6 +175,7 @@ public class Modele {
 	public static int getNbDesserts(){
 		int nb = 0;
 		try{
+			//compte du nombre de desserts de la bdd
 			String sql = "SELECT count(*) as nb from DESSERT";
 			rs = st.executeQuery(sql);
 			
@@ -188,7 +196,7 @@ public class Modele {
 	public static ArrayList<Boisson> getLesBoissons(){
 		ArrayList<Boisson> lesBoissons = new ArrayList<Boisson>();
 		try{
-			//récupération des soft
+			//récupération des softs
 			String sql = "SELECT * FROM Soft";
 			rs = st.executeQuery(sql);
 			
@@ -205,6 +213,7 @@ public class Modele {
 				qteS = rs.getString("qteSoft");
 				tauxS = rs.getFloat("tauxSucre");
 				
+				//ajout des softs à la liste
 				lesBoissons.add(new Soft(idS, nomS, prixS, qteS, tauxS));
 			}
 			
@@ -225,6 +234,7 @@ public class Modele {
 				qteA = rs.getString("qteAlcool");
 				degreA = rs.getFloat("degreAlcool");
 				
+				//ajout des alcools à la liste
 				lesBoissons.add(new Alcool(idA, nomA, prixA, qteA, degreA));
 			}
 
@@ -243,6 +253,7 @@ public class Modele {
 	public static int getNbBoissons(){
 		int nb = 0;
 		try{
+			//compte des boissons de la bdd
 			String sql = "SELECT count(*) as nb from BOISSONS";
 			rs = st.executeQuery(sql);
 			
@@ -263,6 +274,7 @@ public class Modele {
 	public static ArrayList<Menu> getLesMenus(){
 		ArrayList<Menu> lesMenus = new ArrayList<Menu>();
 		try{
+			//récupération des menus de la bdd
 			String sql = "select * from menu";
 			rs = st.executeQuery(sql);
 
@@ -292,6 +304,8 @@ public class Modele {
 					alcool = (Alcool) Modele.rechercherBoisson(idB);
 					soft = null;
 				}*/
+				
+				//ajout des menus à la liste
 				lesMenus.add(new Menu(idM, dessert, plat, soft, alcool));
 			}
 
@@ -310,6 +324,7 @@ public class Modele {
 	public static int getNbMenus(){
 		int nb = 0;
 		try{
+			//compte des menus de la bdd
 			String sql = "SELECT count(*) as nb from Menu";
 			rs = st.executeQuery(sql);
 			
@@ -330,6 +345,7 @@ public class Modele {
 	public static ArrayList<Commande> getLesCommandes(){
 		ArrayList<Commande> lesCommandes = new ArrayList<Commande>();
 		try{
+			//récupération des commandes de la bdd
 			String sql = "SELECT * FROM Commande";
 			rs = st.executeQuery(sql);
 			
@@ -342,9 +358,11 @@ public class Modele {
 				nbC = rs.getInt("nbrCouverts");
 				date = rs.getString("dateCommande");
 				
+				//conversion de la date en français en date en anglais
 				date = date.substring(6,10) + "-" + date.substring(3,5) + "-" + date.substring(0,2);
-
 				Date d = new Date(LocalDate.parse(date));
+				
+				//ajout des commandes à la liste
 				lesCommandes.add(new Commande(numC, nbC, d));
 			}
 
@@ -363,6 +381,7 @@ public class Modele {
 	public static int getNbCommandes(){
 		int nb = 0;
 		try{
+			//compte des commandes de la bdd
 			String sql = "SELECT count(*) as nb from Commande";
 			rs = st.executeQuery(sql);
 			
@@ -384,6 +403,7 @@ public class Modele {
 	public static Dessert rechercherDessert(int unId) {
 		Dessert leDessert = null;
 		try{
+			//recherche d'un dessert pour un id
 			ps = connexion.prepareStatement("SELECT * FROM Dessert WHERE idDessert = ?");
 			ps.setInt(1, unId);
 			rs2 = ps.executeQuery();
@@ -415,6 +435,7 @@ public class Modele {
 	public static Plat rechercherPlat(int unId) {
 		Plat lePlat = null;
 		try{
+			//recherche d'un plat pour un id
 			ps = connexion.prepareStatement("SELECT * FROM Plat WHERE idPlat = ?");
 			ps.setInt(1, unId);
 			rs2 = ps.executeQuery();
@@ -445,6 +466,7 @@ public class Modele {
 	public static Boisson rechercherBoisson(int unId) {
 		Boisson laBoisson = null;
 		try{
+			//recherche d'une boisson pour un id
 			ps = connexion.prepareStatement("SELECT * FROM Boissons WHERE idBoisson = ?");
 			ps.setInt(1, unId);
 			rs2 = ps.executeQuery();
@@ -480,6 +502,7 @@ public class Modele {
 		int id = 0;
 		
 		try{
+			//récupération de l'id max + 1 des plats dans la bdd
 			String sql = "SELECT MAX(idPlat) AS id FROM Plat";
 			rs = st.executeQuery(sql);
 			
@@ -502,7 +525,7 @@ public class Modele {
 	public static void ajouterPlat(String nom, float prix, ArrayList<Plat> lesPlats){
 		try{
 			int id = Modele.getMaxIdPlat();
-			
+			//ajout d'un plat dans la bdd
 			ps = connexion.prepareStatement("INSERT INTO Plat VALUES(?,?,?);");
 			ps.setInt(1, id);
 			ps.setString(2, nom);
@@ -524,7 +547,7 @@ public class Modele {
 	 */
 	public static void supprimerPlat(int id){
 		try{
-			
+			//suppression d'un plat selon un id
 			ps = connexion.prepareStatement("DELETE FROM PLAT WHERE idPlat = ?;");
 			ps.setInt(1, id);
 			ps.executeUpdate();
@@ -544,6 +567,7 @@ public class Modele {
 		int id = 0;
 		
 		try{
+			//récupération de l'id max des menus de la bdd + 1
 			String sql = "SELECT MAX(idMenu) AS id FROM Menu";
 			rs = st.executeQuery(sql);
 			
@@ -568,7 +592,7 @@ public class Modele {
 	public static void ajouterMenu(int idDessert, int idPlat, int idSoft, int idAlcool, int numCommande){
 		try{
 			int id = Modele.getMaxIdMenu();
-			
+			//ajout d'un menu à la bdd
 			ps = connexion.prepareStatement("INSERT INTO Menu VALUES(?,?,?,?);");
 			ps.setInt(1, id);
 			ps.setInt(2, idDessert);
@@ -581,6 +605,7 @@ public class Modele {
 			}
 			ps.executeUpdate();
 
+			//ajout du lien avec sa commande
 			Modele.ajouterPasser(id, numCommande);
 		}
 		catch(SQLException e){
@@ -595,7 +620,7 @@ public class Modele {
 	 */
 	public static void ajouterPasser(int id, int numCommande){
 		try{
-			
+			//ajout du lien entre un menu et une commande
 			ps = connexion.prepareStatement("INSERT INTO Passer VALUES(?,?);");
 			ps.setInt(1, id);
 			ps.setInt(2, numCommande);
@@ -615,6 +640,7 @@ public class Modele {
 		int id = 0;
 		
 		try{
+			//récupération de l'id maximal d'une commande  + 1 dans la bdd
 			String sql = "SELECT MAX(numCommande) AS id FROM Commande";
 			rs = st.executeQuery(sql);
 			
@@ -641,12 +667,14 @@ public class Modele {
 			Date date = new Date (LocalDate.now());
 			String d = date.getDateFrancais();
 			
+			//ajout d'une commande dans la bdd
 			ps = connexion.prepareStatement("INSERT INTO Commande VALUES(?,?,?);");
 			ps.setInt(1, id);
 			ps.setInt(2, nbCouverts);
 			ps.setString(3, d);
 			ps.executeUpdate();
 			
+			//ajout de la commande  à la liste
 			lesCommandes.add(new Commande(id, nbCouverts, date));
 			
 		}
@@ -666,6 +694,7 @@ public class Modele {
 		try{
 			String d = date.getDateFrancais();
 			
+			//récupération du nombre de menus commandés à une date
 			ps = connexion.prepareStatement("SELECT count(M.idMenu) as nb FROM Menu M, Commande C, Passer P WHERE M.idMenu = P.idMenu And C.numCommande = p.numCommande AND dateCommande = ?");
 			ps.setString(1, d);
 			rs = ps.executeQuery();

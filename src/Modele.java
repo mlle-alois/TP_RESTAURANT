@@ -1,8 +1,3 @@
-
-/**
- * @author azimmermann
- */
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,6 +7,11 @@ import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
 
+/**
+ * 
+ * @author azimmermann
+ *
+ */
 public class Modele {
 
 	private static Connection connexion;
@@ -20,6 +20,9 @@ public class Modele {
 	private static ResultSet rs2;
 	private static PreparedStatement ps;
 
+	/**
+	 * Connexion à la bdd 2020zimmermann
+	 */
 	public static void connexion(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -34,6 +37,9 @@ public class Modele {
 		}
 	}
 
+	/**
+	 * déconnexion de la bdd
+	 */
 	public static void deconnexion(){
 		try {
 			connexion.close();
@@ -42,10 +48,16 @@ public class Modele {
 		}
 	}
 
-
+	/**
+	 * Connection de l'utilisateur
+	 * @param mail
+	 * @param mdp
+	 * @return booléen de la réussite ou de l'échec de la connexion
+	 */
 	public static boolean connecterUser(String mail, String mdp){
 		boolean bool = false;
 		try {
+			//on récupère le nombre d'utilisateurs correspondant aux identifiants
 			ps = connexion.prepareStatement("SELECT count(*) as nb FROM utilisateur WHERE mailUser = ? AND mdpUser = ?");
 			ps.setString(1, mail);
 			ps.setString(2, mdp);
@@ -53,6 +65,7 @@ public class Modele {
 			rs = ps.executeQuery();
 			
 			rs.next();
+			//si il y en a un la connexion est réussie
 			if(rs.getInt("nb") == 1){
 				bool = true;
 			}
@@ -66,9 +79,14 @@ public class Modele {
 		return bool;
 	}
 	
+	/**
+	 * récupération des plats de la bdd
+	 * @return liste des plats de la bdd
+	 */
 	public static ArrayList<Plat> getLesPlats(){
 		ArrayList<Plat> lesPlats = new ArrayList<Plat>();
 		try{
+			//récupération des plats de la bdd
 			String sql = "SELECT * FROM Plat";
 			rs = st.executeQuery(sql);
 			
@@ -81,6 +99,7 @@ public class Modele {
 				nomP = rs.getString("nomP");
 				prixP = rs.getFloat("prixP");
 				
+				//ajout du plat à la liste
 				lesPlats.add(new Plat(idP, nomP, prixP));
 			}
 
@@ -92,6 +111,10 @@ public class Modele {
 		return lesPlats;
 	}
 	
+	/**
+	 * récupération du nombre de plats de la bdd
+	 * @return nombre de plats dans la bdd
+	 */
 	public static int getNbPlats(){
 		int nb = 0;
 		try{
@@ -108,6 +131,10 @@ public class Modele {
 		return nb;
 	}
 	
+	/**
+	 * récupération des desserts de la bdd
+	 * @return liste des desserts de la bdd
+	 */
 	public static ArrayList<Dessert> getLesDesserts(){
 		ArrayList<Dessert> lesDesserts = new ArrayList<Dessert>();
 		try{
@@ -134,6 +161,10 @@ public class Modele {
 		return lesDesserts;
 	}
 	
+	/**
+	 * récupération du nombre de desserts dans la bdd
+	 * @return nombre de desserts dans la bdd
+	 */
 	public static int getNbDesserts(){
 		int nb = 0;
 		try{
@@ -150,10 +181,14 @@ public class Modele {
 		return nb;
 	}
 
-
+	/**
+	 * récupération des boissons de la bdd
+	 * @return liste des boissons de la bdd
+	 */
 	public static ArrayList<Boisson> getLesBoissons(){
 		ArrayList<Boisson> lesBoissons = new ArrayList<Boisson>();
 		try{
+			//récupération des soft
 			String sql = "SELECT * FROM Soft";
 			rs = st.executeQuery(sql);
 			
@@ -173,6 +208,7 @@ public class Modele {
 				lesBoissons.add(new Soft(idS, nomS, prixS, qteS, tauxS));
 			}
 			
+			//récupération des alcools
 			sql = "SELECT * FROM Alcool";
 			rs = st.executeQuery(sql);
 			
@@ -200,6 +236,10 @@ public class Modele {
 		return lesBoissons;
 	}
 	
+	/**
+	 * récupération du nombre de boissons dans la bdd
+	 * @return nombre de boissons dans la bdd
+	 */
 	public static int getNbBoissons(){
 		int nb = 0;
 		try{
@@ -216,6 +256,10 @@ public class Modele {
 		return nb;
 	}
 
+	/**
+	 * récupération des menus de la bdd
+	 * @return liste des menus de la bdd
+	 */
 	public static ArrayList<Menu> getLesMenus(){
 		ArrayList<Menu> lesMenus = new ArrayList<Menu>();
 		try{
@@ -229,7 +273,7 @@ public class Modele {
 			
 			Dessert dessert;
 			Plat plat;
-			Soft soft = new Soft(1, "x", (float) 1, "15", 12);
+			Soft soft = new Soft(1, "Coca", (float) 3.50, "33cl", 35);
 			Alcool alcool = null;
 			
 			while(rs.next()){
@@ -259,6 +303,10 @@ public class Modele {
 		return lesMenus;
 	}
 	
+	/**
+	 * récupération du nombre de menus dans la bdd
+	 * @return nombre de menus dans la bdd
+	 */
 	public static int getNbMenus(){
 		int nb = 0;
 		try{
@@ -275,6 +323,10 @@ public class Modele {
 		return nb;
 	}
 
+	/**
+	 * récupération des commandes de la bdd
+	 * @return liste des commandes de la bdd
+	 */
 	public static ArrayList<Commande> getLesCommandes(){
 		ArrayList<Commande> lesCommandes = new ArrayList<Commande>();
 		try{
@@ -304,6 +356,10 @@ public class Modele {
 		return lesCommandes;
 	}
 	
+	/**
+	 * récupération du nombre de commandes dans la bdd
+	 * @return nombre de commandes dans la bdd 
+	 */
 	public static int getNbCommandes(){
 		int nb = 0;
 		try{
@@ -320,6 +376,11 @@ public class Modele {
 		return nb;
 	}
 	
+	/**
+	 * rechercher un dessert selon un id
+	 * @param unId
+	 * @return le dessert correspondant à l'id
+	 */
 	public static Dessert rechercherDessert(int unId) {
 		Dessert leDessert = null;
 		try{
@@ -346,6 +407,11 @@ public class Modele {
 		return leDessert;
 	}
 	
+	/**
+	 * rechercher un plat selon un id
+	 * @param unId
+	 * @return un plat correspondant à l'id
+	 */
 	public static Plat rechercherPlat(int unId) {
 		Plat lePlat = null;
 		try{
@@ -371,6 +437,11 @@ public class Modele {
 		return lePlat;
 	}
 	
+	/**
+	 * rechercher une boisson selon un id
+	 * @param unId
+	 * @return la boisson correspondant à l'id
+	 */
 	public static Boisson rechercherBoisson(int unId) {
 		Boisson laBoisson = null;
 		try{
@@ -401,6 +472,10 @@ public class Modele {
 		return laBoisson;
 	}
 	
+	/**
+	 * récupération de l'id maximal + 1 dans la base de données (pour ajouter une valeur)
+	 * @return id maximal + 1
+	 */
 	public static int getMaxIdPlat(){
 		int id = 0;
 		
@@ -418,6 +493,12 @@ public class Modele {
 		return id;
 	}
 	
+	/**
+	 * ajouter un plat dans la bdd
+	 * @param nom
+	 * @param prix
+	 * @param lesPlats
+	 */
 	public static void ajouterPlat(String nom, float prix, ArrayList<Plat> lesPlats){
 		try{
 			int id = Modele.getMaxIdPlat();
@@ -428,6 +509,7 @@ public class Modele {
 			ps.setFloat(3, prix);
 			ps.executeUpdate();
 			
+			//on ajoute le plat également à la liste
 			lesPlats.add(new Plat(id, nom, prix));
 
 		}
@@ -436,6 +518,10 @@ public class Modele {
 		}
 	}
 	
+	/**
+	 * supprimer le plat ayant l'id égal de la bdd
+	 * @param id
+	 */
 	public static void supprimerPlat(int id){
 		try{
 			
@@ -448,7 +534,12 @@ public class Modele {
 			System.out.println("Erreur SQL supprimer plat");
 		}
 	}
+
 	
+	/**
+	 * récupération de l'id maximal + 1 dans la base de données (pour ajouter une valeur)
+	 * @return id maximal + 1
+	 */
 	public static int getMaxIdMenu(){
 		int id = 0;
 		
@@ -466,6 +557,14 @@ public class Modele {
 		return id;
 	}
 	
+	/**
+	 * ajouter un menu dans la bdd
+	 * @param idDessert
+	 * @param idPlat
+	 * @param idSoft
+	 * @param idAlcool
+	 * @param numCommande
+	 */
 	public static void ajouterMenu(int idDessert, int idPlat, int idSoft, int idAlcool, int numCommande){
 		try{
 			int id = Modele.getMaxIdMenu();
@@ -489,6 +588,11 @@ public class Modele {
 		}
 	}
 	
+	/**
+	 * ajouter un lien entre la commande et le menu dans la bdd
+	 * @param id du menu
+	 * @param numCommande
+	 */
 	public static void ajouterPasser(int id, int numCommande){
 		try{
 			
@@ -501,7 +605,12 @@ public class Modele {
 			System.out.println("Erreur SQL Passer");
 		}
 	}
+
 	
+	/**
+	 * récupération de l'id maximal + 1 dans la base de données (pour ajouter une valeur)
+	 * @return id maximal + 1
+	 */
 	public static int getMaxIdCommande(){
 		int id = 0;
 		
@@ -519,6 +628,12 @@ public class Modele {
 		return id;
 	}
 	
+	/**
+	 * ajouter une commande dans la bdd
+	 * @param nbCouverts
+	 * @param lesCommandes
+	 * @return
+	 */
 	public static int ajouterCommande(int nbCouverts, ArrayList<Commande> lesCommandes){
 		int id = 0;
 		try{
@@ -541,6 +656,11 @@ public class Modele {
 		return id;
 	}
 	
+	/**
+	 * récupérer le nombre de menus commandés à une date donnée
+	 * @param date
+	 * @return nombre de menus commandés à la date donnée
+	 */
 	public static int getNbMenus(Date date) {
 		int nb = 0;
 		try{

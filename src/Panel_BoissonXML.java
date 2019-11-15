@@ -3,19 +3,32 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-
+/**
+ * 
+ * @author azimmermann
+ *
+ */
 public class Panel_BoissonXML extends JPanel {
 
 	private JLabel lblXML;
 	private JButton boutonRetour;
 	
+	/**
+	 * Constructeur du panel des boissons en XML
+	 * @param fenetre
+	 * @param lesBoissons
+	 * @param nbBoisson
+	 */
 	public Panel_BoissonXML(JFrame fenetre, ArrayList<Boisson> lesBoissons, int nbBoisson){
 		
 		this.setLayout(new BorderLayout());
+
+		//définition, nommage et action des boutons
 		boutonRetour = new JButton("Retour");
 		boutonRetour.setName("Boisson");
 		boutonRetour.addActionListener(new ActionAnnulerAjout(fenetre, boutonRetour, lesBoissons, nbBoisson));
 		
+		//création de la chaine d'XML
 		String xml = "";
 		Soft s;
 		Alcool a;
@@ -31,6 +44,8 @@ public class Panel_BoissonXML extends JPanel {
 		}
 		xml = xml + "";
 		lblXML = new JLabel(xml);
+		
+		//ajout des éléments au panel
 		this.add(lblXML, BorderLayout.NORTH);
 		this.add(boutonRetour, BorderLayout.SOUTH);
 	}

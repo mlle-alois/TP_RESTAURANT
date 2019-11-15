@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-
+/**
+ * 
+ * @author azimmermann
+ *
+ */
 public class ActionMenu implements ActionListener{
 
 	private JMenuItem plat;
@@ -15,6 +19,16 @@ public class ActionMenu implements ActionListener{
 	private JMenuItem quitter;
 	private JFrame fenetre;
 	
+	/**
+	 * Constructeur pour récupérer les items
+	 * @param plat
+	 * @param dessert
+	 * @param boisson
+	 * @param menu
+	 * @param commande
+	 * @param quitter
+	 * @param fenetre
+	 */
 	public ActionMenu(JMenuItem plat, JMenuItem dessert, JMenuItem boisson, JMenuItem menu, JMenuItem commande, JMenuItem quitter, JFrame fenetre) {
 		this.plat = plat;
 		this.dessert = dessert;
@@ -27,6 +41,7 @@ public class ActionMenu implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		//récupération de la bonne liste et affichage du panel en fonction du sujet concerné
 		if(e.getSource() == plat){
 			int nbPlats = Modele.getNbPlats();
 			ArrayList<Plat> lesPlats = Modele.getLesPlats();

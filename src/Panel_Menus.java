@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-
+/**
+ * 
+ * @author azimmermann
+ *
+ */
 public class Panel_Menus extends JPanel{
 	
 	private JLabel lblNb;
@@ -15,10 +19,17 @@ public class Panel_Menus extends JPanel{
 	private JPanel panelMilieu;
 	private JPanel panelBas;
 
+	/**
+	 * Constructeur du panel des menus
+	 * @param nbMenus
+	 * @param lesMenus
+	 * @param fenetre
+	 */
 	public Panel_Menus(int nbMenus, ArrayList<Menu> lesMenus, JFrame fenetre){
 
 		this.setLayout(new BorderLayout());
 
+		//définition, nommage et action des boutons
 		this.boutonRechercher = new JButton("Rechercher les menus d'un jour");
 		this.boutonRechercher.setName("Menu");
 		this.boutonXML = new JButton("Voir XML");
@@ -26,10 +37,13 @@ public class Panel_Menus extends JPanel{
 		this.boutonRechercher.addActionListener( new ActionBouton(boutonRechercher, lesMenus, fenetre, nbMenus, -1));
 		this.boutonXML.addActionListener( new ActionBoutonXML(fenetre, nbMenus, lesMenus, boutonXML));
 		
+		//définition des panels
 		this.panelHaut = new JPanel();
 		this.panelMilieu = new JPanel();
 		this.panelBas = new JPanel();
 		
+		
+		//définition du label
 		lblNb = new JLabel("Nombre de menus : " + nbMenus);
 		
 		this.add(lblNb);
@@ -37,6 +51,7 @@ public class Panel_Menus extends JPanel{
 		int i = 0;
 		float prix;
 		
+		//tableau des menus
 		Object data[][] = new Object[nbMenus][5];
 		for(Menu menu : lesMenus){
 			prix = 0;
@@ -62,7 +77,7 @@ public class Panel_Menus extends JPanel{
 		
 		this.panelMilieu.add(scrollPane);
 		
-
+		//ajout des éléments aux panels
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;

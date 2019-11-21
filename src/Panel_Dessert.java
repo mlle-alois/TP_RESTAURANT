@@ -5,7 +5,11 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-
+/**
+ * 
+ * @author azimmermann
+ *
+ */
 public class Panel_Dessert extends JPanel{
 
 	private JLabel lblNb;
@@ -16,27 +20,36 @@ public class Panel_Dessert extends JPanel{
 	private JButton boutonJSon;
 	private JButton boutonXML;
 	
+	/**
+	 * Constructeur du panel des desserts
+	 * @param nbDesserts
+	 * @param lesDesserts
+	 * @param fenetre
+	 */
 	public Panel_Dessert(int nbDesserts, ArrayList<Dessert> lesDesserts, JFrame fenetre){
 
 		this.setLayout(new BorderLayout());
 
+		//définition, nommage et action des boutons
 		this.boutonXML = new JButton("Voir XML");
 		this.boutonXML.setName("Dessert");
 		this.boutonJSon = new JButton("Voir JSon");
 		this.boutonJSon.addActionListener( new ActionBoutonJSon(fenetre, lesDesserts, nbDesserts, boutonJSon));
 		this.boutonXML.addActionListener( new ActionBoutonXML(fenetre, lesDesserts, boutonXML, nbDesserts));
 		
+		//définition des panels
 		this.panelHaut = new JPanel();
 		this.panelMilieu = new JPanel();
 		this.panelBas = new JPanel();
 		this.panelBas.setLayout(new GridBagLayout());
 		
+		//définition du label
 		lblNb = new JLabel("Nombre de desserts : " + nbDesserts);
 		
 		this.add(lblNb);
 		
 		int i = 0;
-		
+		//tableau des desserts
 		Object data[][] = new Object[lesDesserts.size()][3];
 		for(Dessert dessert : lesDesserts){
 			data[i][0] = dessert.getIdDessert();
@@ -50,6 +63,7 @@ public class Panel_Dessert extends JPanel{
 
 		this.panelMilieu.add(scrollPane);
 		
+		//ajout des éléments aux panels
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;

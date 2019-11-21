@@ -7,7 +7,11 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-
+/**
+ * 
+ * @author azimmermann
+ *
+ */
 public class Panel_Plat extends JPanel implements ActionListener{
 
 	private JLabel lblNb;
@@ -21,10 +25,17 @@ public class Panel_Plat extends JPanel implements ActionListener{
 	private JPanel panelMilieu;
 	private JPanel panelBas;
 	
+	/**
+	 * Constructeur du panel des plats
+	 * @param nbPlat
+	 * @param lesPlats
+	 * @param fenetre
+	 */
 	public Panel_Plat(int nbPlat, ArrayList<Plat> lesPlats, JFrame fenetre){
 
 		this.setLayout(new BorderLayout());
-		
+
+		//définition, nommage et action des boutons
 		this.boutonAjouter = new JButton("Ajouter un plat");
 		this.boutonSupprimer = new JButton("Supprimer un plat");
 		this.boutonXML = new JButton("Voir XML");
@@ -37,6 +48,7 @@ public class Panel_Plat extends JPanel implements ActionListener{
 		this.boutonXML.addActionListener( new ActionBoutonXML(fenetre, lesPlats, nbPlat, boutonXML));
 		this.boutonCSV.addActionListener( new ActionBoutonCSV(fenetre, lesPlats, nbPlat, boutonCSV));
 		
+		//définition des panels
 		this.panelHaut = new JPanel();
 		this.panelDroite = new JPanel();
 		this.panelMilieu = new JPanel();
@@ -45,10 +57,12 @@ public class Panel_Plat extends JPanel implements ActionListener{
 		this.panelBas.setLayout(new GridBagLayout());
 		this.panelHaut.setLayout(new BorderLayout());
 		
+		//définition du label
 		lblNb = new JLabel("Nombre de plats : " + nbPlat);
 		
 		int i = 0;
 		
+		//tableau des plats
 		Object data[][] = new Object[lesPlats.size()][3];
 		for(Plat plat : lesPlats){
 			data[i][0] = plat.getIdPlat();
@@ -60,6 +74,7 @@ public class Panel_Plat extends JPanel implements ActionListener{
 		this.tableau = new JTable(data,title);
 		JScrollPane scrollPane = new JScrollPane(tableau);
 		
+		//ajout des éléments aux panels
 		this.panelMilieu.add(scrollPane);
 		
 		GridBagConstraints c = new GridBagConstraints();

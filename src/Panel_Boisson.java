@@ -5,7 +5,11 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-
+/**
+ * 
+ * @author azimmermann
+ *
+ */
 public class Panel_Boisson extends JPanel{
 
 	private JLabel lblNb;
@@ -15,25 +19,35 @@ public class Panel_Boisson extends JPanel{
 	private JPanel panelMilieu;
 	private JPanel panelBas;
 	
+	/**
+	 * Constructeur du panel des boissons
+	 * @param nbBoissons
+	 * @param lesBoissons
+	 * @param fenetre
+	 */
 	public Panel_Boisson(int nbBoissons, ArrayList<Boisson> lesBoissons, JFrame fenetre){
 
 		this.setLayout(new BorderLayout());
 		
+		//définition, nommage et action des boutons
 		this.boutonXML = new JButton("Voir XML");
 		this.boutonXML.setName("Boisson");
 		this.boutonXML.addActionListener( new ActionBoutonXML(lesBoissons, boutonXML, nbBoissons, fenetre));
 		
+		//définition des panels
 		this.panelHaut = new JPanel();
 		this.panelMilieu = new JPanel();
 		this.panelBas = new JPanel();
 		this.panelBas.setLayout(new GridBagLayout());
 		
+		//définition du label
 		lblNb = new JLabel("Nombre de boissons : " + nbBoissons);
 		
 		this.add(lblNb);
 		
 		int i = 0;
 		
+		//tableau des boissons
 		Object data[][] = new Object[lesBoissons.size()][5];
 		for(Boisson boisson : lesBoissons){
 			data[i][0] = boisson.getIdBoisson();
@@ -51,8 +65,10 @@ public class Panel_Boisson extends JPanel{
 		}
 		String [] title = {"Id", "Nom", "Prix", "Quantité", "Tx sucre/° alcool"};
 		this.tableau = new JTable(data,title);
+		
 		JScrollPane scrollPane = new JScrollPane(tableau);
 		
+		//ajout des éléments aux panels
 		this.panelMilieu.add(scrollPane);
 		
 		GridBagConstraints c = new GridBagConstraints();
